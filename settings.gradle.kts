@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "GitHubRepositoriesObserverNew"
 include(":app")
 include(":keyValueStorage")
+
+include(":retrofitProvider")
