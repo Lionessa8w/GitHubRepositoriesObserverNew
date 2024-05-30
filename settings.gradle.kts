@@ -22,5 +22,10 @@ dependencyResolutionManagement {
 rootProject.name = "GitHubRepositoriesObserverNew"
 include(":app")
 include(":keyValueStorage")
-
+include(":restApi")
 include(":retrofitProvider")
+include(":usecases")
+include(":auth")
+include(":info")
+include(":detail")
+include(":utils")

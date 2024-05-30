@@ -1,0 +1,12 @@
+R_DEF: Internal format may change without notice
+local
+drawable github_bleu_png
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id button_sing_in
+id fragment_auth
+id input_token
+id logo_git
+layout fragment_auth
+string personal_access_token
+string sing_in_button

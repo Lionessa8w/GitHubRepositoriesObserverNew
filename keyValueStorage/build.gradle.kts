@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.marina.githubrepositoriesobservernew.key_value_storage_api"
+    namespace = "ru.marina.githubrepositoriesobservernew.key_value_storage"
     compileSdk = 34
 
     defaultConfig {
@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+
 
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")

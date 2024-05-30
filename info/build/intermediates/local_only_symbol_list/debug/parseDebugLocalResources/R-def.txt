@@ -1,0 +1,27 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable gif_louding
+drawable git_logo
+drawable log_out_
+id button_error
+id container_error
+id container_loading
+id description_repository
+id imageView_loading
+id kotlin_or_java
+id linearLayout3
+id linear_layout_horizontal
+id log_out_button
+id name_repository
+id repo_list_root
+id repositories_list_recycler
+id text_error
+id toolbar
+layout fragment_repositories_list
+layout item_repositories_list
+string button_error
+string loading
+string text_error
+string toolbar_text
