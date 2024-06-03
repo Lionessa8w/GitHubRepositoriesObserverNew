@@ -1,16 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml:2:13-83
-INJECTED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml:2:13-83
+ADDED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml:2:13-83
+INJECTED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml:2:13-83
 	package
-		INJECTED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml
+		INJECTED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml
 	xmlns:android
-		ADDED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml:2:23-81
+		ADDED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml:2:23-81
 uses-sdk
-INJECTED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml reason: use-sdk injection requested
-INJECTED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml
-INJECTED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml
+INJECTED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml reason: use-sdk injection requested
+INJECTED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml
+INJECTED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml
 	android:targetSdkVersion
-		INJECTED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml
+		INJECTED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml
 	android:minSdkVersion
-		INJECTED from /Users/aypervov/AndroidStudioProjects/GitHubRepositoriesObserverNew/auth/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest15020892640317055010.xml
+		INJECTED from C:\GitHubRepositoriesObserverNew\auth\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest3490124864413101944.xml

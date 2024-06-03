@@ -7,6 +7,9 @@ plugins {
 }
 
 android {
+    buildFeatures {
+        viewBinding = true
+    }
     namespace = "ru.marina.githubrepositoriesobservernew.retrofit_provider"
     compileSdk = 34
 
