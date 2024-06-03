@@ -1,16 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml:2:13-83
-INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml:2:13-83
+ADDED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml:2:13-83
+INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml:2:13-83
 	package
-		INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml
+		INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml
 	xmlns:android
-		ADDED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml:2:23-81
+		ADDED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml:2:23-81
 uses-sdk
-INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml reason: use-sdk injection requested
-INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml
-INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml
+INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml reason: use-sdk injection requested
+INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml
+INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml
 	android:targetSdkVersion
-		INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml
+		INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml
 	android:minSdkVersion
-		INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest9509744754626197345.xml
+		INJECTED from C:\GitHubRepositoriesObserverNew\detail\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14388799501695171430.xml
