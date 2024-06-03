@@ -3,9 +3,15 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id ("kotlinx-serialization")
+
+
 }
 
 android {
+    buildFeatures {
+        viewBinding = true
+    }
     namespace = "ru.marina.githubrepositoriesobservernew.rest_api"
     compileSdk = 34
 
@@ -39,6 +45,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
 
     implementation(project(":retrofitProvider"))
 }
