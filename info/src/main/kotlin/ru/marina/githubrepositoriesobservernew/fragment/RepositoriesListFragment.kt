@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -90,6 +91,13 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
             }
         }
 
+    }
+    companion object {
+        private const val USER_ID_KEY = "userIdKey"
+
+        fun createArguments(userIdKey: String): Bundle {
+            return bundleOf(USER_ID_KEY to userIdKey)
+        }
     }
 
 

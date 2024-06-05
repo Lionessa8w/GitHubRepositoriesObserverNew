@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -77,10 +78,10 @@ class AuthUserFragment : Fragment() {
                     is AuthUserTokenViewModelState.Success -> {
 
                         val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return@collect
-                        val fragmentAuth = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return@collect
+                        val fragmentRepositoriesList = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return@collect
                         requireActivity()
                             .supportFragmentManager.beginTransaction()
-                            .replace(rootContainerId, fragmentAuth)
+                            .replace(rootContainerId, fragmentRepositoriesList)
                             .addToBackStack(null)
                             .commit()
                     }
@@ -91,6 +92,21 @@ class AuthUserFragment : Fragment() {
 
 
     }
+    fun routeToRepositoriesListFragment(userIdKey: String) {
+        val fragmentRepositoriesList = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return
+        val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return
+        findNavController().navigate(
+            rootContainerId,
+            fragmentRepositoriesList.
+//                .createArguments(userIdKey = editText.text.toString())
+        )
+    }
+//    fun routeToSecondFragment(userIdKey: String) {
+//        findNavController().navigate(
+//            R.id.action_firstFragment_to_secondFragment,
+//            SecondFragment.createArguments(userIdKey = editText.text.toString())
+//        )
+//    }
 
 
     override fun onSaveInstanceState(outState: Bundle) {

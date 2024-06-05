@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        Log.d("checkResult", "onCreate: ${keyValueStorageSetting}")
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
