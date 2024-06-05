@@ -35,16 +35,21 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     fun tryAuth(token: String) {
         authJob?.cancel()
         authJob = viewModelScope.launch(Dispatchers.IO) {
-            _viewStateFlow.emit(AuthUserTokenViewModelState.Loading)
-            val login = authLoginUseCase.authLoginUser(token)
-            if (login.isEmpty()) {
-                _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Введите токен"))
-            } else {
-                Log.d(TAG, "tryAuth: токен прошел")
-                databaseSaveToken.setToken(token)
-                Log.d(TAG, "tryAuth: токен загружен в бд")
-                _viewStateFlow.emit(AuthUserTokenViewModelState.Success(databaseSaveToken.getToken()))
+            try {
+                _viewStateFlow.emit(AuthUserTokenViewModelState.Loading)
+                val login = authLoginUseCase.authLoginUser(token)
+                if (login.isEmpty()) {
+                    _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Введите токен"))
+                } else {
+                    Log.d(TAG, "tryAuth: токен прошел")
+                    databaseSaveToken.setToken(token)
+                    Log.d(TAG, "tryAuth: токен загружен в бд")
+                    _viewStateFlow.emit(AuthUserTokenViewModelState.Success(databaseSaveToken.getToken()))
+                }
+            } catch (e:Throwable) {
+                Log.d("checkResult", "tryAuth: ")
             }
+            
 
         }
     }

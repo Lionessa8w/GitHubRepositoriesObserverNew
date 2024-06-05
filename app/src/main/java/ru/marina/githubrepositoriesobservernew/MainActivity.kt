@@ -1,13 +1,12 @@
 package ru.marina.githubrepositoriesobservernew
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import ru.marina.githubrepositoriesobservernew.fragment.AuthUserFragment
+import ru.marina.githubrepositoriesobservernew.fragment.RepositoriesListFragment
 import ru.marina.githubrepositoriesobservernew.fragment.RepositoryInfoFragment
 
 @AndroidEntryPoint
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_container, AuthUserFragment())
+                .replace(getViewId(), AuthUserFragment())
                 .commit()
         }
         //создание бд
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
     }
 
     override fun getRepositoriesListFragment(): Fragment {
-        return RepositoryInfoFragment()
+        return RepositoriesListFragment()
     }
 
 

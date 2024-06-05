@@ -77,7 +77,7 @@ class AuthUserFragment : Fragment() {
                     is AuthUserTokenViewModelState.Success -> {
 
                         val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return@collect
-                        val fragmentAuth = (activity as? NavigatorViewProvider)?.getAuthUserFragment() ?: return@collect
+                        val fragmentAuth = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return@collect
                         requireActivity()
                             .supportFragmentManager.beginTransaction()
                             .replace(rootContainerId, fragmentAuth)

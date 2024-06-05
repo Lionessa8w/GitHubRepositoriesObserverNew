@@ -9,13 +9,15 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class KeyValueStorageProvider {
 
+    private val keyValueStorage = KeyValueStorage()
+
     @Provides
     fun getKeyValueStorageSetting(): KeyValueStorageSetting {
-        return KeyValueStorage()
+        return keyValueStorage
     }
 
     @Provides
     fun getKeyValueStorageApi(): KeyValueStorageApi {
-        return KeyValueStorage()
+        return keyValueStorage
     }
 }
