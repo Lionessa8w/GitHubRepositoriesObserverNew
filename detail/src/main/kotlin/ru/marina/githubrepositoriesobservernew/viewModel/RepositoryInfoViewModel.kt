@@ -29,7 +29,6 @@ class RepositoryInfoViewModel(
         MutableStateFlow(RepositoryInfoViewModelState.Loading)
     val viewStateFlow: StateFlow<RepositoryInfoViewModelState> = _viewStateFlow.asStateFlow()
 
-
     fun updateRepositoryInfo() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
             viewModelScope.launch {
@@ -38,6 +37,7 @@ class RepositoryInfoViewModel(
         }) {
             val itemList: MutableList<RepositoryInfoItem> = mutableListOf()
             _viewStateFlow.emit(RepositoryInfoViewModelState.Loading)
+
             val model = useCase.getInfoRepository(databaseSaveToken.getToken(), name, owner)
 
             val content: String? = try {
@@ -49,9 +49,11 @@ class RepositoryInfoViewModel(
             }
 //            val model = useCase.getInfoRepository(databaseSaveToken.getToken(), "moko-resources", "icerockdev")
             itemList.add(RepositoryInfoItem.Link(model.htmlUrl))
+
             if (model.license?.isNotBlank() == true) {
                 itemList.add(RepositoryInfoItem.License(model.license))
             }
+
             itemList.add(
                 RepositoryInfoItem.Statistic(
                     model.stars,
@@ -59,21 +61,18 @@ class RepositoryInfoViewModel(
                     model.watchers
                 )
             )
+
             if (content?.isNotBlank() == true) {
                 itemList.add(RepositoryInfoItem.Description(content))
             } else {
                 itemList.add(RepositoryInfoItem.EmptyDescription)
             }
-            _viewStateFlow.emit(
-                RepositoryInfoViewModelState
-                    .Success(itemList)
-            )
 
-
+            _viewStateFlow.emit(RepositoryInfoViewModelState.Success(itemList))
         }
     }
 
-    internal fun String.toMarkdown(): String {
+    private fun String.toMarkdown(): String {
         val listString = this.split("\n")
         var resutl = ""
         for (line in listString) {

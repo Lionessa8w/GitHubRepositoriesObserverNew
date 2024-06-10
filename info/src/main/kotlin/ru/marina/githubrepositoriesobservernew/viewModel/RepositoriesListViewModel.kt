@@ -22,8 +22,6 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var databaseSaveToken: KeyValueStorageApi
 
-
-
     private val _viewStateFlow: MutableStateFlow<RepositoriesListViewModelState> =
         MutableStateFlow(RepositoriesListViewModelState.Loading)
     val viewStateFlow: StateFlow<RepositoriesListViewModelState> = _viewStateFlow.asStateFlow()
@@ -31,7 +29,11 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
     fun updateRepositoriesList() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
             viewModelScope.launch {
-                _viewStateFlow.emit(RepositoriesListViewModelState.Error(throwable.localizedMessage))
+                _viewStateFlow.emit(
+                    RepositoriesListViewModelState.Error(
+                        throwable.localizedMessage ?: ""
+                    )
+                )
             }
         }) {
             _viewStateFlow.emit(RepositoriesListViewModelState.Loading)

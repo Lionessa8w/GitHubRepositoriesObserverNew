@@ -16,6 +16,5 @@ class RepositoryListUseCase @Inject constructor(
         }
 
         return listMapper
-
     }
 }

@@ -47,17 +47,21 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = binding ?: return
 
+        binding.repositoriesListRecycler.layoutManager = LinearLayoutManager(context)
 
         binding.logOutButton.setOnClickListener {
-            val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
-            val fragmentAuth=(activity as? NavigatorViewProvider)?.getAuthUserFragment() ?: return@setOnClickListener
+            // todo добавить логику через вьбмодельку и через акшианалы что чистился токен
+            val rootContainerId =
+                (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
+            val fragmentAuth = (activity as? NavigatorViewProvider)?.getAuthUserFragment()
+                ?: return@setOnClickListener
             requireActivity()
                 .supportFragmentManager.beginTransaction()
                 .replace(rootContainerId, fragmentAuth)
                 .addToBackStack(null)
                 .commit()
         }
-        binding.repositoriesListRecycler.layoutManager = LinearLayoutManager(context)
+
         lifecycleScope.launch {
             viewModel?.viewStateFlow?.collect { state ->
                 when (state) {
@@ -75,23 +79,30 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                         showOrHideGifLoading(false)
                         showOrHideErrorContainer(false)
                         binding.repositoriesListRecycler.adapter =
-                            RepositoriesListAdapter(state.repositoriesModelList,
+                            RepositoriesListAdapter(
+                                state.repositoriesModelList,
                                 onCardClicked = { name, owner ->
-                                    val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return@RepositoriesListAdapter
-                                    val fragment=(activity as? NavigatorViewProvider)?.getRepositoryInfoFragment(name, owner) ?: return@RepositoriesListAdapter
-                                    requireActivity().supportFragmentManager.beginTransaction()
+                                    val rootContainerId =
+                                        (activity as? NavigatorViewProvider)?.getViewId()
+                                            ?: return@RepositoriesListAdapter
+                                    val fragment =
+                                        (activity as? NavigatorViewProvider)?.getRepositoryInfoFragment(
+                                            name,
+                                            owner
+                                        ) ?: return@RepositoriesListAdapter
+                                    requireActivity()
+                                        .supportFragmentManager
+                                        .beginTransaction()
                                         .replace(rootContainerId, fragment)
-                                        .addToBackStack(null).commit()
+                                        .addToBackStack(null)
+                                        .commit()
                                 })
                     }
-
-
                 }
-
             }
         }
-
     }
+
     companion object {
         private const val USER_ID_KEY = "userIdKey"
 
@@ -118,6 +129,4 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         binding = null
         super.onDestroy()
     }
-
-
 }

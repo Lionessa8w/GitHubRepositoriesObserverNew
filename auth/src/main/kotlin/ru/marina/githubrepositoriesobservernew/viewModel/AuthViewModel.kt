@@ -19,6 +19,7 @@ const val TAG = "AuthViewModel"
 
 @HiltViewModel
 class AuthViewModel @Inject constructor() : ViewModel() {
+
     @Inject
     lateinit var databaseSaveToken: KeyValueStorageApi
 
@@ -47,10 +48,9 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                     _viewStateFlow.emit(AuthUserTokenViewModelState.Success(databaseSaveToken.getToken()))
                 }
             } catch (e:Throwable) {
+                // todo добавь ерор стейт
                 Log.d("checkResult", "tryAuth: ")
             }
-            
-
         }
     }
 
@@ -58,6 +58,4 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         authJob?.cancel()
         super.onCleared()
     }
-
-
 }
