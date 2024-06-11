@@ -132,7 +132,7 @@ class RepositoryInfoFragment @Inject private constructor() : Fragment() {
         val image = binding?.imageViewLoading
         binding?.containerLoading?.isVisible = isShow
         Glide.with(this)
-            .load(R.drawable.gif_louding)
+            .load(R.drawable.gif_loading)
             .into(image!!)
     }
 

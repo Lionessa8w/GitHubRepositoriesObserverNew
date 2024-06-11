@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //создание бд
         databaseSaveToken.bindDB(applicationContext)
 
         setContentView(R.layout.activity_main)

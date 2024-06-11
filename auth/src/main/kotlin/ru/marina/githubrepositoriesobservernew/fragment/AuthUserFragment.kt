@@ -75,6 +75,11 @@ class AuthUserFragment : Fragment() {
                     AuthUserTokenViewModelState.Idle -> {}
                     AuthUserTokenViewModelState.Loading -> {
                         //TODO добавь крутилку на кнопку
+
+                        val image= binding?.imageLoading
+                        Glide.with(this@AuthUserFragment)
+                            .load(R.drawable.gif_loading)
+                            .into(image!!)
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
