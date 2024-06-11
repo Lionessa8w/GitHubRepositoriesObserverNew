@@ -18,7 +18,6 @@ class RepositoriesListAdapter(
         val binding = ItemRepositoriesListBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return RepositoriesListHolder(binding)
-
     }
 
     override fun getItemCount(): Int = repositoriesList.size

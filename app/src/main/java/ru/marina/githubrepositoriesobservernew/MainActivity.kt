@@ -8,6 +8,7 @@ import javax.inject.Inject
 import ru.marina.githubrepositoriesobservernew.fragment.AuthUserFragment
 import ru.marina.githubrepositoriesobservernew.fragment.RepositoriesListFragment
 import ru.marina.githubrepositoriesobservernew.fragment.RepositoryInfoFragment
+import java.lang.IllegalStateException
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigatorViewProvider {
@@ -15,18 +16,33 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
     @Inject
     lateinit var databaseSaveToken: KeyValueStorageSetting
 
+    @Inject
+    lateinit var keyValueStorageApi: KeyValueStorageApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(getViewId(), AuthUserFragment())
-                .commit()
-        }
+
         //создание бд
         databaseSaveToken.bindDB(applicationContext)
 
+        setContentView(R.layout.activity_main)
+
+        if (savedInstanceState == null) {
+            val tokenIsInit = try {
+                keyValueStorageApi.getToken().isNotBlank()
+            } catch (e: IllegalStateException) {
+                false
+            }
+            val startFragment = if (tokenIsInit) {
+                RepositoriesListFragment()
+            } else {
+                AuthUserFragment()
+            }
+            supportFragmentManager
+                .beginTransaction()
+                .replace(getViewId(), startFragment)
+                .commit()
+        }
     }
 
     override fun onDestroy() {
@@ -47,6 +63,4 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
     override fun getRepositoriesListFragment(): Fragment {
         return RepositoriesListFragment()
     }
-
-
 }

@@ -4,6 +4,7 @@ import javax.inject.Inject
 import ru.marina.githubrepositoriesobservernew.info.RepositoriesInfoModel
 
 class RepositoriesInfoModelMapper @Inject constructor() {
+
     operator fun invoke(model: SingInResponseRepositoryInfo): RepositoriesInfoModel {
         return RepositoriesInfoModel(
             name = model.name,
@@ -15,5 +16,4 @@ class RepositoriesInfoModelMapper @Inject constructor() {
             stars = model.starts.toString()
         )
     }
-
 }

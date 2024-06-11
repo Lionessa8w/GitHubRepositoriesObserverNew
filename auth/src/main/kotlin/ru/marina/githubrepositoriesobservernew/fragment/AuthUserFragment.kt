@@ -53,8 +53,6 @@ class AuthUserFragment : Fragment() {
             .load(R.drawable.github_bleu_png)
             .into(binding.logoGit)
 
-
-
         binding.buttonSingIn.setOnClickListener {
 
             val authViewModel = this.authViewModel ?: return@setOnClickListener
@@ -70,15 +68,22 @@ class AuthUserFragment : Fragment() {
         lifecycleScope.launch {
             authViewModel?.viewStateFlow?.collect { state ->
                 when (state) {
-                    is AuthUserTokenViewModelState.Error -> Toast.makeText(context, "Введите токен", Toast.LENGTH_SHORT)
-                        .show()
+                    is AuthUserTokenViewModelState.Error -> {
+                        Toast.makeText(context, "Введите токен", Toast.LENGTH_SHORT).show()
+                    }
 
                     AuthUserTokenViewModelState.Idle -> {}
-                    AuthUserTokenViewModelState.Loading -> {}
+                    AuthUserTokenViewModelState.Loading -> {
+                        //TODO добавь крутилку на кнопку
+                    }
+
                     is AuthUserTokenViewModelState.Success -> {
 
-                        val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return@collect
-                        val fragmentRepositoriesList = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return@collect
+                        val rootContainerId =
+                            (activity as? NavigatorViewProvider)?.getViewId() ?: return@collect
+                        val fragmentRepositoriesList =
+                            (activity as? NavigatorViewProvider)?.getRepositoriesListFragment()
+                                ?: return@collect
                         requireActivity()
                             .supportFragmentManager.beginTransaction()
                             .replace(rootContainerId, fragmentRepositoriesList)
@@ -86,21 +91,20 @@ class AuthUserFragment : Fragment() {
                             .commit()
                     }
                 }
-
             }
         }
-
-
     }
-    fun routeToRepositoriesListFragment(userIdKey: String) {
-        val fragmentRepositoriesList = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return
-        val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return
-        findNavController().navigate(
-            rootContainerId,
-            fragmentRepositoriesList.
-//                .createArguments(userIdKey = editText.text.toString())
-        )
-    }
+
+//    fun routeToRepositoriesListFragment(userIdKey: String) {
+//        val fragmentRepositoriesList =
+//            (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return
+//        val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return
+//        findNavController().navigate(
+//            rootContainerId,
+//            fragmentRepositoriesList.
+////                .createArguments(userIdKey = editText.text.toString())
+//        )
+//    }
 //    fun routeToSecondFragment(userIdKey: String) {
 //        findNavController().navigate(
 //            R.id.action_firstFragment_to_secondFragment,
@@ -119,6 +123,4 @@ class AuthUserFragment : Fragment() {
         binding = null
         super.onDestroyView()
     }
-
-
 }

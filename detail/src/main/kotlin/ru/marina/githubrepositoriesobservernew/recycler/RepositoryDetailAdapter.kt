@@ -38,7 +38,6 @@ class RepositoryDetailAdapter(
         bindingLink: ItemActiveLinkBinding
     ) : RecyclerView.ViewHolder(bindingLink.root) {
         val linkText: TextView = bindingLink.linkActive
-
     }
 
     class RepositoryLicenseHolder(bindingLicense: ItemLicenseBinding) :
@@ -60,8 +59,8 @@ class RepositoryDetailAdapter(
 
     class RepositoryEmptyDescription(binding: ItemEmptyDescriptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val descriptionEmptyText: TextView = binding.descriptionEmptyText
-
+            // todo посмотри можно ли удалить
+//        val descriptionEmptyText: TextView = binding.descriptionEmptyText
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -138,7 +137,6 @@ class RepositoryDetailAdapter(
                 holder.numberStars.text = item.star
                 holder.numberWatchers.text = item.watchers
             }
-
         }
     }
 
@@ -147,6 +145,4 @@ class RepositoryDetailAdapter(
         detailJob?.cancel()
         detailJob = null
     }
-
-
 }

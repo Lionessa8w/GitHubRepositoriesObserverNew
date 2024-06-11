@@ -6,7 +6,10 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
-internal class ProviderRetrofitImpl @Inject constructor(private val providerClient: ProviderClient) : ProviderRetrofit {
+internal class ProviderRetrofitImpl @Inject constructor(
+    private val providerClient: ProviderClient
+) : ProviderRetrofit {
+
     private val baseUrl = "https://api.github.com"
 
     override fun providerRetrofit(): Retrofit {
@@ -18,6 +21,4 @@ internal class ProviderRetrofitImpl @Inject constructor(private val providerClie
             .client(providerClient.provideClient())
             .build()
     }
-
-
 }

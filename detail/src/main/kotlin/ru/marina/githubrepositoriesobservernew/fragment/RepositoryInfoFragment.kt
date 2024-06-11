@@ -28,13 +28,14 @@ private const val ARG_NAME_KEY_ID = "ARG_NAME_KEY_ID"
 private const val ARG_OWNER_KEY_ID = "ARG_OWNER_KEY_ID"
 
 @AndroidEntryPoint
-class RepositoryInfoFragment @Inject constructor() : Fragment() {
+class RepositoryInfoFragment @Inject private constructor() : Fragment() {
 
     private var binding: FragmentDetailInfoBinding? = null
     private var viewModel: RepositoryInfoViewModel? = null
 
     @Inject
-    lateinit var useCase: RepositoryInfoUseCase
+    lateinit var useCase: RepositoryInfoUseCase // todo напиши мне я пофикшу вот это место что б юзкейса не было во фрагменте
+
     @Inject
     lateinit var databaseSaveToken: KeyValueStorageApi
 
@@ -67,13 +68,18 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
-// name передается не тот
-        binding.nameRepository.text=arguments?.getString(ARG_NAME_KEY_ID)
+
+        binding.nameRepository.text = arguments?.getString(ARG_NAME_KEY_ID)
+        binding.recyclerViewInfo.layoutManager = LinearLayoutManager(context)
 
         binding.logOutButton.setOnClickListener {
-            val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
+            // todo добавь метод разлогина во вьюмодельку. и из этого метода прокинь акшен на переход в другой фрагмент
+            // viewModel.logOut()
+            val rootContainerId =
+                (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
 
-            val fragmentAuth = (activity as? NavigatorViewProvider)?.getAuthUserFragment() ?: return@setOnClickListener
+            val fragmentAuth = (activity as? NavigatorViewProvider)?.getAuthUserFragment()
+                ?: return@setOnClickListener
 
             requireActivity()
                 .supportFragmentManager.beginTransaction()
@@ -82,17 +88,19 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
                 .commit()
         }
         binding.arrowBack.setOnClickListener {
-            val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
-            val fragmentList = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return@setOnClickListener
-
-            requireActivity()
-                .supportFragmentManager.beginTransaction()
-                .replace(rootContainerId, fragmentList)
-                .addToBackStack(null)
-                .commit()
+            activity?.onBackPressed() // todo проверь что работает
+//            val rootContainerId =
+//                (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
+//            val fragmentList = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment()
+//                ?: return@setOnClickListener
+//
+//            requireActivity()
+//                .supportFragmentManager.beginTransaction()
+//                .replace(rootContainerId, fragmentList)
+//                .addToBackStack(null)
+//                .commit()
         }
 
-        binding.recyclerViewInfo.layoutManager = LinearLayoutManager(context)
         lifecycleScope.launch {
             viewModel?.viewStateFlow?.collect { state ->
                 when (state) {
@@ -112,9 +120,7 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
                         binding.recyclerViewInfo.adapter = RepositoryDetailAdapter(state.itemList)
                     }
                 }
-
             }
-
         }
     }
 

@@ -4,6 +4,7 @@ import javax.inject.Inject
 import ru.marina.githubrepositoriesobservernew.ProviderRetrofit
 
 class UserLoginProviderRetrofit @Inject constructor() {
+
     @Inject
     lateinit var providerRetrofit: ProviderRetrofit
 

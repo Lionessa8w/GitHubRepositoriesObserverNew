@@ -5,6 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 
 internal class Interceptor {
+
     fun createAuthorizationInterceptor(): Interceptor {
         return Interceptor { chain ->
             val newBuilder = chain.request().newBuilder()
