@@ -8,14 +8,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.IllegalStateException
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
-import ru.marina.githubrepositoriesobservernew.NavigatorViewProvider
 import ru.marina.githubrepositoriesobservernew.detail.R
 import ru.marina.githubrepositoriesobservernew.detail.RepositoryInfoUseCase
 import ru.marina.githubrepositoriesobservernew.detail.databinding.FragmentDetailInfoBinding
@@ -33,6 +32,9 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
     private var binding: FragmentDetailInfoBinding? = null
     private var viewModel: RepositoryInfoViewModel? = null
 
+
+    private val args: RepositoryInfoFragmentArgs by navArgs()
+
     @Inject
     lateinit var useCase: RepositoryInfoUseCase // todo напиши мне я пофикшу вот это место что б юзкейса не было во фрагменте
 
@@ -44,8 +46,8 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
         viewModel = ViewModelProvider(
             this,
             RepositoryInfoViewModelFactory(
-                name = arguments?.getString(ARG_NAME_KEY_ID) ?: throw IllegalStateException(""),
-                owner = arguments?.getString(ARG_OWNER_KEY_ID) ?: throw IllegalStateException(""),
+                name = args.name,
+                owner = args.owner,
                 useCase = useCase,
                 databaseSaveToken = databaseSaveToken
             )
@@ -74,31 +76,10 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
 
         binding.logOutButton.setOnClickListener {
             // todo добавь метод разлогина во вьюмодельку. и из этого метода прокинь акшен на переход в другой фрагмент
-            // viewModel.logOut()
-            val rootContainerId =
-                (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
 
-            val fragmentAuth = (activity as? NavigatorViewProvider)?.navigationHostFragmentToAuthUserFragment()
-                ?: return@setOnClickListener
-
-            requireActivity()
-                .supportFragmentManager.beginTransaction()
-                .replace(rootContainerId, fragmentAuth)
-                .addToBackStack(null)
-                .commit()
         }
         binding.arrowBack.setOnClickListener {
             activity?.onBackPressed() // todo проверь что работает
-//            val rootContainerId =
-//                (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
-//            val fragmentList = (activity as? NavigatorViewProvider)?.getRepositoriesListFragment()
-//                ?: return@setOnClickListener
-//
-//            requireActivity()
-//                .supportFragmentManager.beginTransaction()
-//                .replace(rootContainerId, fragmentList)
-//                .addToBackStack(null)
-//                .commit()
         }
 
         lifecycleScope.launch {
@@ -142,14 +123,4 @@ class RepositoryInfoFragment @Inject constructor() : Fragment() {
         super.onDestroy()
     }
 
-    companion object {
-        fun newInstance(name: String, owner: String): RepositoryInfoFragment {
-            val args = Bundle()
-            args.putString(ARG_NAME_KEY_ID, name)
-            args.putString(ARG_OWNER_KEY_ID, owner)
-            val fragment = RepositoryInfoFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 }

@@ -3,7 +3,7 @@ color black
 color white
 drawable arrow_back
 drawable fork
-drawable gif_louding
+drawable gif_loading
 drawable git_logo
 drawable link
 drawable log_out_
@@ -32,7 +32,9 @@ id link_active
 id link_image
 id log_out_button
 id name_repository
+id nav_graph
 id recyclerView_info
+id repositoryInfoFragment
 id scales
 id star_image
 id stars
@@ -48,6 +50,7 @@ layout item_description
 layout item_empty_description
 layout item_license
 layout item_star_fork_watcher
+navigation nav_graph_repo_info
 string button_error
 string description
 string description_empty

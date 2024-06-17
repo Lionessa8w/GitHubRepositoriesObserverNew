@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import ru.marina.githubrepositoriesobservernew.NavigatorViewProvider
+import ru.marina.githubrepositoriesobservernew.NavigatorFragment
 import ru.marina.githubrepositoriesobservernew.info.R
 import ru.marina.githubrepositoriesobservernew.info.databinding.FragmentRepositoriesListBinding
 import ru.marina.githubrepositoriesobservernew.recycler.RepositoriesListAdapter
@@ -53,16 +50,7 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
 
         binding.logOutButton.setOnClickListener {
             // todo добавить логику через вьбмодельку и через акшианалы что чистился токен
-//            findNavController().navigate()
-            val rootContainerId =
-                (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
-            val fragmentAuth = (activity as? NavigatorViewProvider)?.navigationHostFragmentToAuthUserFragment()
-                ?: return@setOnClickListener
-            requireActivity()
-                .supportFragmentManager.beginTransaction()
-                .replace(rootContainerId, fragmentAuth)
-                .addToBackStack(null)
-                .commit()
+            getNavigationHostFragment(this)?.navigationHostFragmentToAuthUserFragment()
         }
 
         lifecycleScope.launch {
@@ -85,24 +73,9 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                             RepositoriesListAdapter(
                                 state.repositoriesModelList,
                                 onCardClicked = { name, owner ->
-                                    var bundleName= bundleOf("name" to name)
-                                    var bundleOwner= bundleOf("owner" to owner)
-//                                    view.findNavController().navigate()
-
-//                                    val rootContainerId =
-//                                        (activity as? NavigatorViewProvider)?.getViewId()
-//                                            ?: return@RepositoriesListAdapter
-//                                    val fragment =
-//                                        (activity as? NavigatorViewProvider)?.navigationHostFragmentToRepositoryInfoFragment(
-//                                            name,
-//                                            owner
-//                                        ) ?: return@RepositoriesListAdapter
-//                                    requireActivity()
-//                                        .supportFragmentManager
-//                                        .beginTransaction()
-//                                        .replace(rootContainerId, fragment)
-//                                        .addToBackStack(null)
-//                                        .commit()
+                                    getNavigationHostFragment(
+                                        this@RepositoriesListFragment
+                                    )?.navigationHostFragmentToRepositoryInfoFragment(name, owner)
                                 })
                     }
                 }
@@ -110,12 +83,10 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         }
     }
 
-    companion object {
-        private const val USER_ID_KEY = "userIdKey"
-
-        fun createArguments(userIdKey: String): Bundle {
-            return bundleOf(USER_ID_KEY to userIdKey)
-        }
+    private tailrec fun getNavigationHostFragment(fragment: Fragment): NavigatorFragment? {
+        val parentFragment = fragment.parentFragment ?: return null
+        if (parentFragment is NavigatorFragment) return parentFragment
+        return getNavigationHostFragment(parentFragment)
     }
 
 

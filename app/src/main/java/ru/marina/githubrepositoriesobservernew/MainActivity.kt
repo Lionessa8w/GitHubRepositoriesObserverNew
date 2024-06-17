@@ -11,7 +11,7 @@ import ru.marina.githubrepositoriesobservernew.fragment.RepositoryInfoFragment
 import java.lang.IllegalStateException
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NavigatorViewProvider {
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var databaseSaveToken: KeyValueStorageSetting
@@ -30,17 +30,4 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
         super.onDestroy()
     }
 
-    override fun getViewId(): Int = -1 // todo переписать на норм навигацию все экраны
-
-    override fun navigationHostFragmentToRepositoryInfoFragment(name: String, owner: String): Fragment {
-        return RepositoryInfoFragment.newInstance(name, owner)
-    }
-
-    override fun navigationHostFragmentToAuthUserFragment(): Fragment {
-        return AuthUserFragment()
-    }
-
-    override fun navigationHostFragmentToRepositoriesListFragment(): Fragment {
-        return RepositoriesListFragment()
-    }
 }

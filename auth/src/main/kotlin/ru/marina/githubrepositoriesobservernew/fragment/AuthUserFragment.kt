@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import ru.marina.githubrepositoriesobservernew.NavigatorViewProvider
+import ru.marina.githubrepositoriesobservernew.NavigatorFragment
 import ru.marina.githubrepositoriesobservernew.auth.R
 import ru.marina.githubrepositoriesobservernew.auth.databinding.FragmentAuthBinding
 import ru.marina.githubrepositoriesobservernew.state.AuthUserTokenViewModelState
@@ -55,7 +55,7 @@ class AuthUserFragment : Fragment() {
         binding.buttonSingIn.setOnClickListener {
 
             val authViewModel = this.authViewModel ?: return@setOnClickListener
-            // передали токен вью модели
+
             authViewModel.tryAuth(binding.inputToken.text.toString())
 
         }
@@ -72,9 +72,8 @@ class AuthUserFragment : Fragment() {
                     }
 
                     AuthUserTokenViewModelState.Idle -> {}
-                    AuthUserTokenViewModelState.Loading -> {
-                        //TODO добавь крутилку на кнопку
 
+                    AuthUserTokenViewModelState.Loading -> {
                         val image= binding?.imageLoading
                         Glide.with(this@AuthUserFragment)
                             .load(R.drawable.gif_loading)
@@ -82,39 +81,20 @@ class AuthUserFragment : Fragment() {
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
+                        getNavigationHostFragment(
+                            this@AuthUserFragment
+                        )?.navigationHostFragmentToRepositoriesListFragment()
 
-                        val rootContainerId =
-                            (activity as? NavigatorViewProvider)?.getViewId() ?: return@collect
-                        val fragmentRepositoriesList =
-                            (activity as? NavigatorViewProvider)?.navigationHostFragmentToRepositoriesListFragment()
-                                ?: return@collect
-                        requireActivity()
-                            .supportFragmentManager.beginTransaction()
-                            .replace(rootContainerId, fragmentRepositoriesList)
-                            .addToBackStack(null)
-                            .commit()
                     }
                 }
             }
         }
     }
-
-//    fun routeToRepositoriesListFragment(userIdKey: String) {
-//        val fragmentRepositoriesList =
-//            (activity as? NavigatorViewProvider)?.getRepositoriesListFragment() ?: return
-//        val rootContainerId = (activity as? NavigatorViewProvider)?.getViewId() ?: return
-//        findNavController().navigate(
-//            rootContainerId,
-//            fragmentRepositoriesList.
-////                .createArguments(userIdKey = editText.text.toString())
-//        )
-//    }
-//    fun routeToSecondFragment(userIdKey: String) {
-//        findNavController().navigate(
-//            R.id.action_firstFragment_to_secondFragment,
-//            SecondFragment.createArguments(userIdKey = editText.text.toString())
-//        )
-//    }
+    private tailrec fun getNavigationHostFragment(fragment: Fragment): NavigatorFragment? {
+        val parentFragment = fragment.parentFragment ?: return null
+        if (parentFragment is NavigatorFragment) return parentFragment
+        return getNavigationHostFragment(parentFragment)
+    }
 
 
     override fun onSaveInstanceState(outState: Bundle) {

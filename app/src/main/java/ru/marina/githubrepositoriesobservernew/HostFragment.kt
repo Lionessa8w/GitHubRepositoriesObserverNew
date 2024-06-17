@@ -1,7 +1,6 @@
 package ru.marina.githubrepositoriesobservernew
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -9,7 +8,7 @@ import java.lang.IllegalStateException
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HostFragment : Fragment(), NavigatorViewProvider {
+class HostFragment : Fragment(), NavigatorFragment {
 
     @Inject
     lateinit var keyValueStorageApi: KeyValueStorageApi
@@ -29,15 +28,19 @@ class HostFragment : Fragment(), NavigatorViewProvider {
         }
     }
 
-//    override fun navigationHostFragmentToRepositoryInfoFragment(name: String, owner: String): Fragment {
-//        findNavController().navigate(HostFragmentDirections.)
-//    }
+
+    override fun navigationHostFragmentToRepositoryInfoFragment(name: String, owner: String) {
+        findNavController().navigate(HostFragmentDirections.actionHostFragmentToRepositoryInfoFragment(
+            name = name,
+            owner = owner
+        ))
+    }
 
     override fun navigationHostFragmentToAuthUserFragment() {
-        findNavController().navigate(HostFragmentDirections.actionGoToRepositoriesListFragment())
+        findNavController().navigate(HostFragmentDirections.actionGoToAuth())
     }
 
     override fun navigationHostFragmentToRepositoriesListFragment() {
-        findNavController().navigate(HostFragmentDirections.actionGoToAuth())
+        findNavController().navigate(HostFragmentDirections.actionGoToRepositoriesListFragment())
     }
 }
