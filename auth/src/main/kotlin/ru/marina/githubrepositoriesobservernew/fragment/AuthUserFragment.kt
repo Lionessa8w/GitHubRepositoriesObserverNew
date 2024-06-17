@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -87,7 +86,7 @@ class AuthUserFragment : Fragment() {
                         val rootContainerId =
                             (activity as? NavigatorViewProvider)?.getViewId() ?: return@collect
                         val fragmentRepositoriesList =
-                            (activity as? NavigatorViewProvider)?.getRepositoriesListFragment()
+                            (activity as? NavigatorViewProvider)?.navigationHostFragmentToRepositoriesListFragment()
                                 ?: return@collect
                         requireActivity()
                             .supportFragmentManager.beginTransaction()

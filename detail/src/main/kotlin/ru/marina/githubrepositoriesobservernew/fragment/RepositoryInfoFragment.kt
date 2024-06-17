@@ -28,7 +28,7 @@ private const val ARG_NAME_KEY_ID = "ARG_NAME_KEY_ID"
 private const val ARG_OWNER_KEY_ID = "ARG_OWNER_KEY_ID"
 
 @AndroidEntryPoint
-class RepositoryInfoFragment @Inject private constructor() : Fragment() {
+class RepositoryInfoFragment @Inject constructor() : Fragment() {
 
     private var binding: FragmentDetailInfoBinding? = null
     private var viewModel: RepositoryInfoViewModel? = null
@@ -78,7 +78,7 @@ class RepositoryInfoFragment @Inject private constructor() : Fragment() {
             val rootContainerId =
                 (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
 
-            val fragmentAuth = (activity as? NavigatorViewProvider)?.getAuthUserFragment()
+            val fragmentAuth = (activity as? NavigatorViewProvider)?.navigationHostFragmentToAuthUserFragment()
                 ?: return@setOnClickListener
 
             requireActivity()

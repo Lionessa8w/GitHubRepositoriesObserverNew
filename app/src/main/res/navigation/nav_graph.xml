@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/hostFragment">
+
+    <fragment
+        android:id="@+id/hostFragment"
+        android:name="ru.marina.githubrepositoriesobservernew.HostFragment"
+        android:label="Хост">
+        <action
+            android:id="@+id/action_go_to_auth"
+            app:destination="@id/authUserFragment"
+            app:popUpTo="@id/nav_graph" />
+        <action
+            android:id="@+id/action_go_to_repositories_list_fragment"
+            app:destination="@id/repositoriesListFragment"
+            app:popUpTo="@id/nav_graph" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authUserFragment"
+        android:name="ru.marina.githubrepositoriesobservernew.fragment.AuthUserFragment"
+        android:label="Авторизация">
+        <action
+            android:id="@+id/action_go_to_repositories_list_fragment"
+            app:destination="@id/repositoriesListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/repositoriesListFragment"
+        android:name="ru.marina.githubrepositoriesobservernew.fragment.RepositoriesListFragment"
+        android:label="Список репозиториев">
+        <action
+            android:id="@+id/action_go_to_repository_info_fragment"
+            app:destination="@id/repositoryInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/repositoryInfoFragment"
+        android:name="ru.marina.githubrepositoriesobservernew.fragment.RepositoryInfoFragment"
+        android:label="инфо репозиториев">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="owner"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

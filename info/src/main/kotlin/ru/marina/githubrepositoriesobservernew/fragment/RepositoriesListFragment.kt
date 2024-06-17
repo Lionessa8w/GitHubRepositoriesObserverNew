@@ -9,6 +9,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,9 +53,10 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
 
         binding.logOutButton.setOnClickListener {
             // todo добавить логику через вьбмодельку и через акшианалы что чистился токен
+//            findNavController().navigate()
             val rootContainerId =
                 (activity as? NavigatorViewProvider)?.getViewId() ?: return@setOnClickListener
-            val fragmentAuth = (activity as? NavigatorViewProvider)?.getAuthUserFragment()
+            val fragmentAuth = (activity as? NavigatorViewProvider)?.navigationHostFragmentToAuthUserFragment()
                 ?: return@setOnClickListener
             requireActivity()
                 .supportFragmentManager.beginTransaction()
@@ -82,20 +85,24 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                             RepositoriesListAdapter(
                                 state.repositoriesModelList,
                                 onCardClicked = { name, owner ->
-                                    val rootContainerId =
-                                        (activity as? NavigatorViewProvider)?.getViewId()
-                                            ?: return@RepositoriesListAdapter
-                                    val fragment =
-                                        (activity as? NavigatorViewProvider)?.getRepositoryInfoFragment(
-                                            name,
-                                            owner
-                                        ) ?: return@RepositoriesListAdapter
-                                    requireActivity()
-                                        .supportFragmentManager
-                                        .beginTransaction()
-                                        .replace(rootContainerId, fragment)
-                                        .addToBackStack(null)
-                                        .commit()
+                                    var bundleName= bundleOf("name" to name)
+                                    var bundleOwner= bundleOf("owner" to owner)
+//                                    view.findNavController().navigate()
+
+//                                    val rootContainerId =
+//                                        (activity as? NavigatorViewProvider)?.getViewId()
+//                                            ?: return@RepositoriesListAdapter
+//                                    val fragment =
+//                                        (activity as? NavigatorViewProvider)?.navigationHostFragmentToRepositoryInfoFragment(
+//                                            name,
+//                                            owner
+//                                        ) ?: return@RepositoriesListAdapter
+//                                    requireActivity()
+//                                        .supportFragmentManager
+//                                        .beginTransaction()
+//                                        .replace(rootContainerId, fragment)
+//                                        .addToBackStack(null)
+//                                        .commit()
                                 })
                     }
                 }

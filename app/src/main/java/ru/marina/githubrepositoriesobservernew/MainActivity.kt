@@ -16,9 +16,6 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
     @Inject
     lateinit var databaseSaveToken: KeyValueStorageSetting
 
-    @Inject
-    lateinit var keyValueStorageApi: KeyValueStorageApi
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,22 +23,6 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
 
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null) {
-            val tokenIsInit = try {
-                keyValueStorageApi.getToken().isNotBlank()
-            } catch (e: IllegalStateException) {
-                false
-            }
-            val startFragment = if (tokenIsInit) {
-                RepositoriesListFragment()
-            } else {
-                AuthUserFragment()
-            }
-            supportFragmentManager
-                .beginTransaction()
-                .replace(getViewId(), startFragment)
-                .commit()
-        }
     }
 
     override fun onDestroy() {
@@ -49,17 +30,17 @@ class MainActivity : AppCompatActivity(), NavigatorViewProvider {
         super.onDestroy()
     }
 
-    override fun getViewId(): Int = R.id.main_container
+    override fun getViewId(): Int = -1 // todo переписать на норм навигацию все экраны
 
-    override fun getRepositoryInfoFragment(name: String, owner: String): Fragment {
+    override fun navigationHostFragmentToRepositoryInfoFragment(name: String, owner: String): Fragment {
         return RepositoryInfoFragment.newInstance(name, owner)
     }
 
-    override fun getAuthUserFragment(): Fragment {
+    override fun navigationHostFragmentToAuthUserFragment(): Fragment {
         return AuthUserFragment()
     }
 
-    override fun getRepositoriesListFragment(): Fragment {
+    override fun navigationHostFragmentToRepositoriesListFragment(): Fragment {
         return RepositoriesListFragment()
     }
 }
