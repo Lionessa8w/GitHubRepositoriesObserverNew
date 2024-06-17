@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import ru.marina.githubrepositoriesobservernew.NavigatorFragment
+import ru.marina.githubrepositoriesobservernew.NavigatorActivity
 import ru.marina.githubrepositoriesobservernew.info.R
 import ru.marina.githubrepositoriesobservernew.info.databinding.FragmentRepositoriesListBinding
 import ru.marina.githubrepositoriesobservernew.recycler.RepositoriesListAdapter
@@ -83,9 +83,9 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         }
     }
 
-    private tailrec fun getNavigationHostFragment(fragment: Fragment): NavigatorFragment? {
+    private tailrec fun getNavigationHostFragment(fragment: Fragment): NavigatorActivity? {
         val parentFragment = fragment.parentFragment ?: return null
-        if (parentFragment is NavigatorFragment) return parentFragment
+        if (parentFragment is NavigatorActivity) return parentFragment
         return getNavigationHostFragment(parentFragment)
     }
 

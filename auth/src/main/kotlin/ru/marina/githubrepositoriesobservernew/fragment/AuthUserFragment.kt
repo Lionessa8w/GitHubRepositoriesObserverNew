@@ -5,15 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import ru.marina.githubrepositoriesobservernew.NavigatorFragment
+import ru.marina.githubrepositoriesobservernew.NavigatorActivity
 import ru.marina.githubrepositoriesobservernew.auth.R
 import ru.marina.githubrepositoriesobservernew.auth.databinding.FragmentAuthBinding
+import ru.marina.githubrepositoriesobservernew.getNavigatorFragment
 import ru.marina.githubrepositoriesobservernew.state.AuthUserTokenViewModelState
 import ru.marina.githubrepositoriesobservernew.viewModel.AuthViewModel
 
@@ -53,7 +55,6 @@ class AuthUserFragment : Fragment() {
             .into(binding.logoGit)
 
         binding.buttonSingIn.setOnClickListener {
-
             val authViewModel = this.authViewModel ?: return@setOnClickListener
 
             authViewModel.tryAuth(binding.inputToken.text.toString())
@@ -74,26 +75,19 @@ class AuthUserFragment : Fragment() {
                     AuthUserTokenViewModelState.Idle -> {}
 
                     AuthUserTokenViewModelState.Loading -> {
-                        val image= binding?.imageLoading
+                        val image = binding?.imageLoading ?: return@collect
+                        image.isVisible = true
                         Glide.with(this@AuthUserFragment)
                             .load(R.drawable.gif_loading)
-                            .into(image!!)
+                            .into(image)
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
-                        getNavigationHostFragment(
-                            this@AuthUserFragment
-                        )?.navigationHostFragmentToRepositoriesListFragment()
-
+                        getNavigatorFragment()?.navigationHostFragmentToRepositoriesListFragment()
                     }
                 }
             }
         }
-    }
-    private tailrec fun getNavigationHostFragment(fragment: Fragment): NavigatorFragment? {
-        val parentFragment = fragment.parentFragment ?: return null
-        if (parentFragment is NavigatorFragment) return parentFragment
-        return getNavigationHostFragment(parentFragment)
     }
 
 

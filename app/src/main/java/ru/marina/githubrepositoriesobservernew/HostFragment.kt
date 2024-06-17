@@ -8,7 +8,7 @@ import java.lang.IllegalStateException
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HostFragment : Fragment(), NavigatorFragment {
+class HostFragment : Fragment() {
 
     @Inject
     lateinit var keyValueStorageApi: KeyValueStorageApi
@@ -22,25 +22,9 @@ class HostFragment : Fragment(), NavigatorFragment {
         }
 
         if (!isTokenInit) {
-            navigationHostFragmentToAuthUserFragment()
+            getNavigatorFragment()?.navigationHostFragmentToAuthUserFragment()
         } else {
-            navigationHostFragmentToRepositoriesListFragment()
+            getNavigatorFragment()?.navigationHostFragmentToRepositoriesListFragment()
         }
-    }
-
-
-    override fun navigationHostFragmentToRepositoryInfoFragment(name: String, owner: String) {
-        findNavController().navigate(HostFragmentDirections.actionHostFragmentToRepositoryInfoFragment(
-            name = name,
-            owner = owner
-        ))
-    }
-
-    override fun navigationHostFragmentToAuthUserFragment() {
-        findNavController().navigate(HostFragmentDirections.actionGoToAuth())
-    }
-
-    override fun navigationHostFragmentToRepositoriesListFragment() {
-        findNavController().navigate(HostFragmentDirections.actionGoToRepositoriesListFragment())
     }
 }

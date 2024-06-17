@@ -10,10 +10,14 @@
         android:label="Хост">
         <action
             android:id="@+id/action_go_to_auth"
-            app:destination="@id/authUserFragment"/>
+            app:destination="@id/authUserFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_go_to_repositories_list_fragment"
-            app:destination="@id/repositoriesListFragment" />
+            app:destination="@id/repositoriesListFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_hostFragment_to_repositoryInfoFragment"
             app:destination="@id/repositoryInfoFragment" />
@@ -25,7 +29,8 @@
         android:label="Авторизация">
         <action
             android:id="@+id/action_go_to_repositories_list_fragment"
-            app:destination="@id/repositoriesListFragment" />
+            app:destination="@id/repositoriesListFragment"
+            app:popUpTo="@id/nav_graph" />
     </fragment>
 
     <fragment

@@ -1,6 +1,6 @@
 package ru.marina.githubrepositoriesobservernew
 
-interface NavigatorFragment {
+interface NavigatorActivity {
 
     fun navigationHostFragmentToRepositoryInfoFragment(name: String, owner: String)
 
