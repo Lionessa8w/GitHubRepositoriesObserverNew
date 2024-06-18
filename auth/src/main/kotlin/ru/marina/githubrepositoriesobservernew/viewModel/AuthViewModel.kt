@@ -1,5 +1,6 @@
 package ru.marina.githubrepositoriesobservernew.viewModel
 
+import android.accounts.NetworkErrorException
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -49,7 +50,13 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                     Log.d(TAG, "tryAuth: токен загружен в бд")
                     _viewStateFlow.emit(AuthUserTokenViewModelState.Success())
                 }
-            } catch (e: Throwable) {
+
+                //найти как отловить ошибку подключения к сети
+            }catch (e: NetworkErrorException){
+                _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Нет подключения к сети"))
+
+            }
+            catch (e: Throwable) {
                 // todo добавь ерор стейт
                 Log.d("checkResult", "tryAuth: ")
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
