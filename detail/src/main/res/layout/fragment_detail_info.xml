@@ -30,7 +30,7 @@
                 android:id="@+id/arrow_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
+                android:layout_weight="10"
                 android:background="#FF000000"
                 android:src="@drawable/arrow_back">
 
@@ -40,11 +40,13 @@
                 android:id="@+id/name_repository"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:text="@string/toolbar_text"
                 android:textColor="#DAD6D6"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:lines="1"/>
 
         </LinearLayout>
 

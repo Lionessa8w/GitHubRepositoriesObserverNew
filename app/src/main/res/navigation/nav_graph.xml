@@ -9,11 +9,6 @@
         android:name="ru.marina.githubrepositoriesobservernew.HostFragment"
         android:label="Хост">
         <action
-            android:id="@+id/action_go_to_auth"
-            app:destination="@id/authUserFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_go_to_repositories_list_fragment"
             app:destination="@id/repositoriesListFragment"
             app:popUpTo="@id/nav_graph"
@@ -35,25 +30,26 @@
         android:id="@+id/repositoriesListFragment"
         android:name="ru.marina.githubrepositoriesobservernew.fragment.RepositoriesListFragment"
         android:label="Список репозиториев">
-        <action
-            android:id="@+id/action_go_to_repository_info_fragment"
-            app:destination="@id/repositoryInfoFragment" />
-        <action
-            android:id="@+id/action_repositoriesListFragment_to_authUserFragment2"
-            app:destination="@id/authUserFragment"
-            app:popUpTo="@id/nav_graph"/>
     </fragment>
 
-    <fragment
-        android:id="@+id/repositoryInfoFragment"
-        android:name="ru.marina.githubrepositoriesobservernew.fragment.RepositoryDetailFragment"
-        android:label="инфо репозиториев">
+    <include app:graph="@navigation/nav_graph_repo_info" />
+
+    <action
+        android:id="@+id/action_go_to_auth"
+        app:destination="@id/authUserFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="false" />
+
+    <action
+        android:id="@+id/action_go_to_repository_info_fragment"
+        app:destination="@id/nav_graph_repo_info">
         <argument
             android:name="name"
             app:argType="string" />
         <argument
             android:name="owner"
             app:argType="string" />
-    </fragment>
+    </action>
+
 
 </navigation>

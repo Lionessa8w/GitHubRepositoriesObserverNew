@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(), NavigatorActivity {
         val fragment = getAnyFragment ?: return
         fragment.findNavController().navigate(
             RepositoriesListFragmentDirections
-                .actionRepositoriesListFragmentToAuthUserFragment2()
+                .actionGoToAuth()
         )
     }
 }

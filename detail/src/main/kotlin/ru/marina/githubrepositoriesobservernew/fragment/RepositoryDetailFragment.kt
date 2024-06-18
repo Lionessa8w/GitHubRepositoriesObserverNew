@@ -14,14 +14,12 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
-import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
 import ru.marina.githubrepositoriesobservernew.detail.R
-import ru.marina.githubrepositoriesobservernew.detail.RepositoryInfoUseCase
 import ru.marina.githubrepositoriesobservernew.detail.databinding.FragmentDetailInfoBinding
 import ru.marina.githubrepositoriesobservernew.recycler.RepositoryDetailAdapter
 import ru.marina.githubrepositoriesobservernew.state.RepositoryInfoViewModelState
 import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModel
-import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModelFactory
+import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModelFactoryProvider
 
 private const val ARG_NAME_KEY_ID = "ARG_NAME_KEY_ID"
 
@@ -36,20 +34,15 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
     private val args: RepositoryDetailFragmentArgs by navArgs()
 
     @Inject
-    lateinit var useCase: RepositoryInfoUseCase // todo напиши мне я пофикшу вот это место что б юзкейса не было во фрагменте
-
-    @Inject
-    lateinit var databaseSaveToken: KeyValueStorageApi
+    lateinit var repositoryDetailViewModelFactoryProvider: RepositoryDetailViewModelFactoryProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(
             this,
-            RepositoryDetailViewModelFactory(
+            repositoryDetailViewModelFactoryProvider.getRepositoryDetailViewModelFactory(
                 name = args.name,
-                owner = args.owner,
-                useCase = useCase,
-                databaseSaveToken = databaseSaveToken
+                owner = args.owner
             )
         )[RepositoryDetailViewModel::class.java]
 
@@ -71,7 +64,7 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
 
-        binding.nameRepository.text = arguments?.getString(ARG_NAME_KEY_ID)
+        binding.nameRepository.text = args.name
         binding.recyclerViewInfo.layoutManager = LinearLayoutManager(context)
 
         binding.arrowBack.setOnClickListener {

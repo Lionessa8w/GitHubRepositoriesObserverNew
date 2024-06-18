@@ -8,8 +8,8 @@
         android:id="@+id/linearLayout_empty_Description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#000000"
         android:orientation="vertical"
-        android:background="#100F0F"
         android:paddingTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:text="@string/description_empty"
             android:textColor="#FFFFFF"
-            android:textSize="20sp">
+            android:textSize="20sp"
+            android:paddingLeft="8dp">
 
         </TextView>
     </LinearLayout>

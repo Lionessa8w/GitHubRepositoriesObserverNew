@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
-import ru.marina.githubrepositoriesobservernew.detail.RepositoryInfoUseCase
+import ru.marina.githubrepositoriesobservernew.detail.RepositoryDetailUseCase
 import ru.marina.githubrepositoriesobservernew.state.RepositoryInfoItem
 import ru.marina.githubrepositoriesobservernew.state.RepositoryInfoViewModelState
 
@@ -21,7 +21,7 @@ import ru.marina.githubrepositoriesobservernew.state.RepositoryInfoViewModelStat
 class RepositoryDetailViewModel(
     private val owner: String,
     private val name: String,
-    private val useCase: RepositoryInfoUseCase,
+    private val useCase: RepositoryDetailUseCase,
     private val databaseSaveToken: KeyValueStorageApi,
 ) : ViewModel() {
 

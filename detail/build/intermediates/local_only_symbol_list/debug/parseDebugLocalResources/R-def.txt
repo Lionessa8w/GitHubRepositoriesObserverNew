@@ -32,7 +32,7 @@ id linearLayout_star_fork_watcher
 id link_active
 id link_image
 id name_repository
-id nav_graph
+id nav_graph_repo_info
 id recyclerView_info
 id repositoryInfoFragment
 id scales

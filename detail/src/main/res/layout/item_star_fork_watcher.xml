@@ -17,12 +17,15 @@
         <LinearLayout
             android:id="@+id/linearLayout_star_fork_watcher"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="#000000"
             android:foregroundGravity="center_vertical"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="16dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -32,7 +35,8 @@
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:paddingRight="4dp"
-                android:src="@drawable/star_yellow">
+                android:src="@drawable/star_yellow"
+                >
 
             </ImageView>
 
@@ -120,7 +124,8 @@
                 android:paddingRight="4dp"
                 android:text="@string/watchers"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp">
+                android:textSize="20sp"
+                >
 
             </TextView>
 

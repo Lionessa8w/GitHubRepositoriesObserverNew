@@ -30,7 +30,7 @@ int id linearLayout_star_fork_watcher 0x0
 int id link_active 0x0
 int id link_image 0x0
 int id name_repository 0x0
-int id nav_graph 0x0
+int id nav_graph_repo_info 0x0
 int id recyclerView_info 0x0
 int id repositoryInfoFragment 0x0
 int id scales 0x0
