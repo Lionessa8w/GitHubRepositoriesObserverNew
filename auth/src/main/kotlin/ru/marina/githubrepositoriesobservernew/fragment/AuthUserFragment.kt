@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import ru.marina.githubrepositoriesobservernew.NavigatorActivity
 import ru.marina.githubrepositoriesobservernew.auth.R
 import ru.marina.githubrepositoriesobservernew.auth.databinding.FragmentAuthBinding
 import ru.marina.githubrepositoriesobservernew.getNavigatorFragment
@@ -69,20 +68,20 @@ class AuthUserFragment : Fragment() {
             authViewModel?.viewStateFlow?.collect { state ->
                 when (state) {
                     is AuthUserTokenViewModelState.Error -> {
+                        showOrHideGifLoading(false)
                         Toast.makeText(context, "Введите токен", Toast.LENGTH_SHORT).show()
                     }
 
-                    AuthUserTokenViewModelState.Idle -> {}
+                    AuthUserTokenViewModelState.Idle -> {
+                        showOrHideGifLoading(false)
+                    }
 
                     AuthUserTokenViewModelState.Loading -> {
-                        val image = binding?.imageLoading ?: return@collect
-                        image.isVisible = true
-                        Glide.with(this@AuthUserFragment)
-                            .load(R.drawable.gif_loading)
-                            .into(image)
+                        showOrHideGifLoading(true)
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
+                        showOrHideGifLoading(false)
                         getNavigatorFragment()?.navigationHostFragmentToRepositoriesListFragment()
                     }
                 }
@@ -90,6 +89,16 @@ class AuthUserFragment : Fragment() {
         }
     }
 
+    private fun showOrHideGifLoading(isShow: Boolean) {
+        val binding = binding ?: return
+        binding.buttonSingIn.isClickable = false
+        val image = binding.imageViewLoading
+        binding.containerLoading.isVisible = isShow
+        Glide.with(this)
+            .load(R.drawable.gif_loading)
+            .into(image)
+
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(LAST_TOKEN_INPUT, binding?.inputToken?.text.toString())

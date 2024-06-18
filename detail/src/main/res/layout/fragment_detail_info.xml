@@ -46,14 +46,6 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/log_out_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:background="#FF000000"
-                android:src="@drawable/log_out_" />
-
         </LinearLayout>
 
 

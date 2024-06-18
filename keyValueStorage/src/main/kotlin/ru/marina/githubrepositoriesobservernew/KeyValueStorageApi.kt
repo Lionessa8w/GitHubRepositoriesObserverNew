@@ -5,5 +5,6 @@ interface KeyValueStorageApi {
     fun getToken(): String
 
     fun setToken(token: String)
+    fun clear()
 }
 

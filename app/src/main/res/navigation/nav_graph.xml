@@ -18,9 +18,7 @@
             app:destination="@id/repositoriesListFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_hostFragment_to_repositoryInfoFragment"
-            app:destination="@id/repositoryInfoFragment" />
+
     </fragment>
 
     <fragment
@@ -40,11 +38,15 @@
         <action
             android:id="@+id/action_go_to_repository_info_fragment"
             app:destination="@id/repositoryInfoFragment" />
+        <action
+            android:id="@+id/action_repositoriesListFragment_to_authUserFragment2"
+            app:destination="@id/authUserFragment"
+            app:popUpTo="@id/nav_graph"/>
     </fragment>
 
     <fragment
         android:id="@+id/repositoryInfoFragment"
-        android:name="ru.marina.githubrepositoriesobservernew.fragment.RepositoryInfoFragment"
+        android:name="ru.marina.githubrepositoriesobservernew.fragment.RepositoryDetailFragment"
         android:label="инфо репозиториев">
         <argument
             android:name="name"

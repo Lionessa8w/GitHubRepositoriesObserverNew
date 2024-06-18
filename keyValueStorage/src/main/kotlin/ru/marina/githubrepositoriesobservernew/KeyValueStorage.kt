@@ -32,4 +32,9 @@ internal class KeyValueStorage: KeyValueStorageApi, KeyValueStorageSetting {
         val currentBd = db ?: throw IllegalStateException(ERROR_DB)
         currentBd.edit().putString(TOKEN_KEY, token).apply()
     }
+
+    override fun clear() {
+        val currentBd = db ?: throw IllegalStateException(ERROR_DB)
+        currentBd.edit().putString(TOKEN_KEY, null).apply()
+    }
 }

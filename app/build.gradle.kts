@@ -62,7 +62,7 @@ dependencies {
     implementation(project(":auth"))
     implementation(project(":utils"))
     implementation(project(":detail"))
-    implementation(project(":info"))
+    implementation(project(":infoList"))
 
 
 }

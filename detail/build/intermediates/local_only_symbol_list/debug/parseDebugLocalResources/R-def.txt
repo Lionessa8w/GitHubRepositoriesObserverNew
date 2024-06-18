@@ -31,7 +31,6 @@ id linearLayout_link
 id linearLayout_star_fork_watcher
 id link_active
 id link_image
-id log_out_button
 id name_repository
 id nav_graph
 id recyclerView_info

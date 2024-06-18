@@ -5,8 +5,9 @@ drawable github_bleu_png
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 id button_sing_in
+id container_loading
 id fragment_auth
-id image_loading
+id imageView_loading
 id input_token
 id linear_loading
 id logo_git

@@ -52,24 +52,30 @@
             android:text="@string/sing_in_button"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_weight="2">
+            android:layout_weight="2"/>
 
-        </Button>
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"/>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="false"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
-            android:id="@+id/image_loading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="6"
-            android:src="@drawable/gif_loading"
-            android:visibility="gone">
-
-        </ImageView>
-
-
+            android:id="@+id/imageView_loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/gif_loading"/>
     </LinearLayout>
 
 
