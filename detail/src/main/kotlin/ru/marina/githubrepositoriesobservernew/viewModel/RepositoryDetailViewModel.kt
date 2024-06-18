@@ -8,10 +8,8 @@ import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
@@ -43,13 +41,11 @@ class RepositoryDetailViewModel(
             val model = useCase.getInfoRepository(databaseSaveToken.getToken(), name, owner)
 
             val content: String? = try {
-//                useCase.getRepositoryContext(databaseSaveToken.getToken(), "moko-resources", "icerockdev").content?.toMarkdown()
                 useCase.getRepositoryContext(databaseSaveToken.getToken(), name, owner).content?.toMarkdown()
             } catch (e: Throwable) {
                 Log.d("checkResult", "$e")
                 null
             }
-//            val model = useCase.getInfoRepository(databaseSaveToken.getToken(), "moko-resources", "icerockdev")
             itemList.add(RepositoryInfoItem.Link(model.htmlUrl))
 
             if (model.license?.isNotBlank() == true) {
@@ -76,10 +72,10 @@ class RepositoryDetailViewModel(
 
     private fun String.toMarkdown(): String {
         val listString = this.split("\n")
-        var resutl = ""
+        var result = ""
         for (line in listString) {
-            resutl += String(Base64.decode(line), StandardCharsets.UTF_8)
+            result += String(Base64.decode(line), StandardCharsets.UTF_8)
         }
-        return resutl
+        return result
     }
 }

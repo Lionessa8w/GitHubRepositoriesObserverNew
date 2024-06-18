@@ -7,10 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
@@ -49,11 +47,12 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                     Log.d(TAG, "tryAuth: токен прошел")
                     databaseSaveToken.setToken(token)
                     Log.d(TAG, "tryAuth: токен загружен в бд")
-                    _viewStateFlow.emit(AuthUserTokenViewModelState.Success(databaseSaveToken.getToken()))
+                    _viewStateFlow.emit(AuthUserTokenViewModelState.Success())
                 }
             } catch (e: Throwable) {
                 // todo добавь ерор стейт
                 Log.d("checkResult", "tryAuth: ")
+                _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
             }
         }
     }

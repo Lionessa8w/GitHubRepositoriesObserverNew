@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import ru.marina.githubrepositoriesobservernew.fragment.AuthUserFragmentDirections
 import ru.marina.githubrepositoriesobservernew.fragment.RepositoriesListFragmentDirections
 
 @AndroidEntryPoint
@@ -42,14 +43,30 @@ class MainActivity : AppCompatActivity(), NavigatorActivity {
 
     override fun navigationHostFragmentToAuthUserFragment() {
         val fragment = getAnyFragment ?: return
-        fragment.findNavController().navigate(HostFragmentDirections.actionGoToAuth())
+        fragment.findNavController()
+            .navigate(
+                HostFragmentDirections
+                    .actionGoToAuth()
+            )
     }
 
 
     override fun navigationHostFragmentToRepositoriesListFragment() {
         val fragment = getAnyFragment ?: return
         fragment.findNavController()
-            .navigate(HostFragmentDirections.actionGoToRepositoriesListFragment())
+            .navigate(
+                HostFragmentDirections
+                    .actionGoToRepositoriesListFragment()
+            )
+    }
+
+    override fun navigationAuthFragmentToRepositoriesListFragment() {
+        val fragment = getAnyFragment ?: return
+        fragment.findNavController()
+            .navigate(
+                AuthUserFragmentDirections
+                    .actionGoToRepositoriesListFragment()
+            )
     }
 
     override fun navigationRepositoriesListFragmentToAuthUserFragment() {

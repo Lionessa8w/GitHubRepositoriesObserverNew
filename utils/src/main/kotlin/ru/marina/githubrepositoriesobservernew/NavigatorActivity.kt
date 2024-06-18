@@ -6,6 +6,7 @@ interface NavigatorActivity {
 
     fun navigationHostFragmentToAuthUserFragment()
     fun navigationHostFragmentToRepositoriesListFragment()
+    fun navigationAuthFragmentToRepositoriesListFragment()
     fun navigationRepositoriesListFragmentToAuthUserFragment()
 
 }

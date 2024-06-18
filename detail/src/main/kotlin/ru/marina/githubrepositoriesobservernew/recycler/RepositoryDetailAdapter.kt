@@ -59,8 +59,6 @@ class RepositoryDetailAdapter(
 
     class RepositoryEmptyDescription(binding: ItemEmptyDescriptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            // todo посмотри можно ли удалить
-//        val descriptionEmptyText: TextView = binding.descriptionEmptyText
     }
 
     override fun getItemViewType(position: Int): Int {

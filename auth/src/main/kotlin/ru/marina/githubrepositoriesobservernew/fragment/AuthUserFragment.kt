@@ -78,11 +78,11 @@ class AuthUserFragment : Fragment() {
 
                     AuthUserTokenViewModelState.Loading -> {
                         showOrHideGifLoading(true)
+                        binding?.buttonSingIn?.isClickable = false
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
-                        showOrHideGifLoading(false)
-                        getNavigatorFragment()?.navigationHostFragmentToRepositoriesListFragment()
+                        getNavigatorFragment()?.navigationAuthFragmentToRepositoriesListFragment()
                     }
                 }
             }
@@ -91,7 +91,6 @@ class AuthUserFragment : Fragment() {
 
     private fun showOrHideGifLoading(isShow: Boolean) {
         val binding = binding ?: return
-        binding.buttonSingIn.isClickable = false
         val image = binding.imageViewLoading
         binding.containerLoading.isVisible = isShow
         Glide.with(this)

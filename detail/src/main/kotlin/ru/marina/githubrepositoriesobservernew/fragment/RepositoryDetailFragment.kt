@@ -24,7 +24,7 @@ import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewMod
 import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModelFactory
 
 private const val ARG_NAME_KEY_ID = "ARG_NAME_KEY_ID"
-private const val ARG_OWNER_KEY_ID = "ARG_OWNER_KEY_ID"
+
 
 @AndroidEntryPoint
 class RepositoryDetailFragment @Inject constructor() : Fragment() {
@@ -75,7 +75,7 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
         binding.recyclerViewInfo.layoutManager = LinearLayoutManager(context)
 
         binding.arrowBack.setOnClickListener {
-            activity?.onBackPressed() // todo проверь что работает
+            activity?.onBackPressed()
         }
 
         lifecycleScope.launch {
@@ -106,11 +106,12 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
     }
 
     private fun showOrHideGifLoading(isShow: Boolean) {
-        val image = binding?.imageViewLoading
-        binding?.containerLoading?.isVisible = isShow
+        val binding = binding ?: return
+        val image = binding.imageViewLoading
+        binding.containerLoading.isVisible = isShow
         Glide.with(this)
             .load(R.drawable.gif_loading)
-            .into(image!!)
+            .into(image)
     }
 
     override fun onDestroy() {

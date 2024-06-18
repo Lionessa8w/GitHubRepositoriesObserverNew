@@ -8,6 +8,5 @@ sealed class AuthUserTokenViewModelState {
 
     data class Error(val message: String) : AuthUserTokenViewModelState()
 
-    // успех //TODO нужен ли токен?
-    class Success(val token: String) : AuthUserTokenViewModelState()
+    class Success() : AuthUserTokenViewModelState()
 }
