@@ -1,10 +1,10 @@
 package ru.marina.githubrepositoriesobservernew.viewModel
 
-import android.accounts.NetworkErrorException
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.net.UnknownHostException
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -30,11 +30,9 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     private var authJob: Job? = null
 
 
-
     private val _viewStateFlow: MutableStateFlow<AuthUserTokenViewModelState> =
         MutableStateFlow(AuthUserTokenViewModelState.Idle)
     val viewStateFlow: StateFlow<AuthUserTokenViewModelState> = _viewStateFlow.asStateFlow()
-
 
     fun tryAuth(token: String) {
         authJob?.cancel()
@@ -43,29 +41,24 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Loading)
                 val login = authLoginUseCase.authLoginUser(token)
                 if (login.isEmpty()) {
-                    _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Введите токен"))
+                    _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorEmptyToken("Введите токен"))
                 } else {
                     Log.d(TAG, "tryAuth: токен прошел")
                     databaseSaveToken.setToken(token)
                     Log.d(TAG, "tryAuth: токен загружен в бд")
-                    _viewStateFlow.emit(AuthUserTokenViewModelState.Success())
+                    _viewStateFlow.emit(AuthUserTokenViewModelState.Success)
                 }
+            } catch (e: UnknownHostException) {
+                _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorInternet(e.message.toString()))
 
-                //найти как отловить ошибку подключения к сети
-            }catch (e: NetworkErrorException){
-                _viewStateFlow.emit(AuthUserTokenViewModelState.Error("Нет подключения к сети"))
+            } catch (e: Throwable) {
+                Log.d("checkResult", "tryAuth: $e")
+                _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorEmptyToken(e.message.toString()))
+            }
 
-            }
-            catch (e: Throwable) {
-                // todo добавь ерор стейт
-                Log.d("checkResult", "tryAuth: ")
-                _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
-            }
         }
     }
-
-
-    override fun onCleared() {
+        override fun onCleared() {
         authJob?.cancel()
         super.onCleared()
     }

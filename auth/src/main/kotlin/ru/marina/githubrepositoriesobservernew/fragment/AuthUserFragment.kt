@@ -1,9 +1,14 @@
 package ru.marina.githubrepositoriesobservernew.fragment
 
+import android.app.ProgressDialog.show
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -21,7 +26,7 @@ import ru.marina.githubrepositoriesobservernew.viewModel.AuthViewModel
 private const val LAST_TOKEN_INPUT = "LAST_TOKEN_INPUT"
 
 @AndroidEntryPoint
-class AuthUserFragment : Fragment() {
+class AuthUserFragment : Fragment(), OnEditorActionListener {
 
     private var binding: FragmentAuthBinding? = null
 
@@ -55,8 +60,12 @@ class AuthUserFragment : Fragment() {
 
         binding.buttonSingIn.setOnClickListener {
             val authViewModel = this.authViewModel ?: return@setOnClickListener
+            val inputToken = binding.inputToken
 
-            authViewModel.tryAuth(binding.inputToken.text.toString())
+            authViewModel.tryAuth(inputToken.text.toString())
+            inputToken.setOnEditorActionListener(this)
+            inputToken.setImeActionLabel("GO", EditorInfo.IME_ACTION_DONE)
+
 
         }
         observeViewModelState()
@@ -67,7 +76,7 @@ class AuthUserFragment : Fragment() {
         lifecycleScope.launch {
             authViewModel?.viewStateFlow?.collect { state ->
                 when (state) {
-                    is AuthUserTokenViewModelState.Error -> {
+                    is AuthUserTokenViewModelState.ErrorEmptyToken -> {
                         showOrHideGifLoading(false)
                         Toast.makeText(context, "Введите токен", Toast.LENGTH_SHORT).show()
                     }
@@ -78,11 +87,17 @@ class AuthUserFragment : Fragment() {
 
                     AuthUserTokenViewModelState.Loading -> {
                         showOrHideGifLoading(true)
-                        binding?.buttonSingIn?.isClickable = false
+
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
                         getNavigatorFragment()?.navigationAuthFragmentToRepositoriesListFragment()
+                        binding?.buttonSingIn?.isClickable = false
+                    }
+
+                    is AuthUserTokenViewModelState.ErrorInternet -> {
+                        showOrHideGifLoading(false)
+                        Toast.makeText(context, "Нет подключения к сети", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -108,5 +123,13 @@ class AuthUserFragment : Fragment() {
         authViewModel = null
         binding = null
         super.onDestroyView()
+    }
+
+    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_DONE || actionId == R.id.input_token) {
+            getNavigatorFragment()?.navigationAuthFragmentToRepositoriesListFragment()
+            return true
+        }
+        return false
     }
 }

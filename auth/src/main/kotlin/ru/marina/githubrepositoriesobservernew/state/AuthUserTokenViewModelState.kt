@@ -6,7 +6,9 @@ sealed class AuthUserTokenViewModelState {
 
     data object Loading : AuthUserTokenViewModelState()
 
-    data class Error(val message: String) : AuthUserTokenViewModelState()
+    data class ErrorEmptyToken(val message: String) : AuthUserTokenViewModelState()
 
-    class Success() : AuthUserTokenViewModelState()
+    data class ErrorInternet(val message: String) : AuthUserTokenViewModelState()
+
+    data object Success : AuthUserTokenViewModelState()
 }
