@@ -12,6 +12,9 @@ id imageView_loading
 id input_token
 id linear_loading
 id logo_git
+id text_error
 layout fragment_auth
+string input_token
+string no_internet
 string personal_access_token
 string sing_in_button

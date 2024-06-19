@@ -2,4 +2,7 @@
 <resources>
     <string name="personal_access_token">Токен личного доступа</string>
     <string name="sing_in_button">ВОЙТИ</string>
+    <string name="no_internet">Нет подключения к сети</string>
+    <string name="input_token">Введите токен</string>
+
 </resources>

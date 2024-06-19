@@ -53,7 +53,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
             } catch (e: Throwable) {
                 Log.d("checkResult", "tryAuth: $e")
-                _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorEmptyToken(e.message.toString()))
+                _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
             }
 
         }

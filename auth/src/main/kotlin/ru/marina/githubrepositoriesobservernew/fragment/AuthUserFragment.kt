@@ -1,6 +1,5 @@
 package ru.marina.githubrepositoriesobservernew.fragment
 
-import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -78,7 +77,8 @@ class AuthUserFragment : Fragment(), OnEditorActionListener {
                 when (state) {
                     is AuthUserTokenViewModelState.ErrorEmptyToken -> {
                         showOrHideGifLoading(false)
-                        Toast.makeText(context, "Введите токен", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, "Введите токен", Toast.LENGTH_SHORT).show()
+                        binding?.textError?.text=R.string.input_token.toString()
                     }
 
                     AuthUserTokenViewModelState.Idle -> {
@@ -97,8 +97,11 @@ class AuthUserFragment : Fragment(), OnEditorActionListener {
 
                     is AuthUserTokenViewModelState.ErrorInternet -> {
                         showOrHideGifLoading(false)
-                        Toast.makeText(context, "Нет подключения к сети", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, "Нет подключения к сети", Toast.LENGTH_SHORT).show()
+                        binding?.textError?.text=R.string.no_internet.toString()
                     }
+
+                    is AuthUserTokenViewModelState.Error ->{}
                 }
             }
         }
