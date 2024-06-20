@@ -1,8 +1,8 @@
 int color black 0x0
 int drawable gif_loading 0x0
-int drawable github_bleu_png 0x0
 int drawable ic_launcher_background 0x0
 int drawable ic_launcher_foreground 0x0
+int drawable logo_git 0x0
 int id button_sing_in 0x0
 int id container_loading 0x0
 int id fragment_auth 0x0
@@ -16,3 +16,4 @@ int string input_token 0x0
 int string no_internet 0x0
 int string personal_access_token 0x0
 int string sing_in_button 0x0
+int string unknown_error 0x0

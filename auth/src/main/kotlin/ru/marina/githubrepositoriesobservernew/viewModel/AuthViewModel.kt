@@ -39,15 +39,13 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         authJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Loading)
-                val login = authLoginUseCase.authLoginUser(token)
-                if (login.isEmpty()) {
-                    _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorEmptyToken("Введите токен"))
-                } else {
-                    Log.d(TAG, "tryAuth: токен прошел")
-                    databaseSaveToken.setToken(token)
-                    Log.d(TAG, "tryAuth: токен загружен в бд")
-                    _viewStateFlow.emit(AuthUserTokenViewModelState.Success)
-                }
+                authLoginUseCase.authLoginUser(token)
+                Log.d(TAG, "tryAuth: токен прошел")
+                databaseSaveToken.setToken(token)
+
+                Log.d(TAG, "tryAuth: токен загружен в бд")
+                _viewStateFlow.emit(AuthUserTokenViewModelState.Success)
+
             } catch (e: UnknownHostException) {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorInternet(e.message.toString()))
 
@@ -58,8 +56,25 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
         }
     }
-        override fun onCleared() {
+
+    override fun onCleared() {
         authJob?.cancel()
         super.onCleared()
+    }
+    fun clearErrorState(){
+        viewModelScope.launch {
+            _viewStateFlow.emit(AuthUserTokenViewModelState.Idle)
+        }
+    }
+
+    fun validate(inputToken: String): Boolean {
+        return if (inputToken.isNotBlank()) {
+            true
+        } else {
+            viewModelScope.launch {
+                _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorEmptyToken(""))
+            }
+            false
+        }
     }
 }

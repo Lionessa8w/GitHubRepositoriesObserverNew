@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,7 +26,7 @@ import ru.marina.githubrepositoriesobservernew.viewModel.AuthViewModel
 private const val LAST_TOKEN_INPUT = "LAST_TOKEN_INPUT"
 
 @AndroidEntryPoint
-class AuthUserFragment : Fragment(), OnEditorActionListener {
+class AuthUserFragment : Fragment() {
 
     private var binding: FragmentAuthBinding? = null
 
@@ -53,55 +54,94 @@ class AuthUserFragment : Fragment(), OnEditorActionListener {
             binding.inputToken.setText(savedInstanceState.getString(LAST_TOKEN_INPUT) ?: "")
         }
 
+        setupInputTokenEditText()
+
         Glide.with(this)
-            .load(R.drawable.github_bleu_png)
+            .load(R.drawable.logo_git)
             .into(binding.logoGit)
 
+        Glide.with(this)
+            .load(R.drawable.gif_loading)
+            .into(binding.imageViewLoading)
+
         binding.buttonSingIn.setOnClickListener {
-            val authViewModel = this.authViewModel ?: return@setOnClickListener
-            val inputToken = binding.inputToken
-
-            authViewModel.tryAuth(inputToken.text.toString())
-            inputToken.setOnEditorActionListener(this)
-            inputToken.setImeActionLabel("GO", EditorInfo.IME_ACTION_DONE)
-
-
+            logIn()
         }
+
         observeViewModelState()
 
     }
 
+    private fun logIn() {
+        val binding = binding ?: return
+        val authViewModel = this.authViewModel ?: return
+        val inputToken = binding.inputToken.text.toString()
+        if (authViewModel.validate(inputToken).not()){
+            return
+        }
+        authViewModel.tryAuth(inputToken)
+
+    }
+
+    private fun setupInputTokenEditText() {
+        val binding = binding ?: return
+        val inputToken = binding.inputToken
+        inputToken.setOnEditorActionListener(object : OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    logIn()
+                    return false
+                }
+                return false
+            }
+        })
+        inputToken.setImeActionLabel("GO", EditorInfo.IME_ACTION_DONE)
+        inputToken.doOnTextChanged { text, start, count, after ->
+            authViewModel?.clearErrorState()
+        }
+    }
+
     private fun observeViewModelState() {
+        val binding= binding ?: return
+        val errorText= binding.textError
         lifecycleScope.launch {
             authViewModel?.viewStateFlow?.collect { state ->
                 when (state) {
                     is AuthUserTokenViewModelState.ErrorEmptyToken -> {
                         showOrHideGifLoading(false)
-//                        Toast.makeText(context, "Введите токен", Toast.LENGTH_SHORT).show()
-                        binding?.textError?.text=R.string.input_token.toString()
+                        errorText.isVisible=true
+                        errorText.text = getString(R.string.input_token)
+
                     }
 
                     AuthUserTokenViewModelState.Idle -> {
                         showOrHideGifLoading(false)
+                        errorText.isVisible=false
                     }
 
                     AuthUserTokenViewModelState.Loading -> {
                         showOrHideGifLoading(true)
+                        errorText.isVisible=false
 
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
                         getNavigatorFragment()?.navigationAuthFragmentToRepositoriesListFragment()
-                        binding?.buttonSingIn?.isClickable = false
+                        errorText.isVisible=false
+                        binding.buttonSingIn.isClickable = false
                     }
 
                     is AuthUserTokenViewModelState.ErrorInternet -> {
                         showOrHideGifLoading(false)
-//                        Toast.makeText(context, "Нет подключения к сети", Toast.LENGTH_SHORT).show()
-                        binding?.textError?.text=R.string.no_internet.toString()
+                        errorText.isVisible=true
+                        errorText.text = getString(R.string.no_internet)
                     }
 
-                    is AuthUserTokenViewModelState.Error ->{}
+                    is AuthUserTokenViewModelState.Error -> {
+                        showOrHideGifLoading(false)
+                        errorText.isVisible=true
+                        errorText.text = getString(R.string.unknown_error)
+                    }
                 }
             }
         }
@@ -109,12 +149,7 @@ class AuthUserFragment : Fragment(), OnEditorActionListener {
 
     private fun showOrHideGifLoading(isShow: Boolean) {
         val binding = binding ?: return
-        val image = binding.imageViewLoading
         binding.containerLoading.isVisible = isShow
-        Glide.with(this)
-            .load(R.drawable.gif_loading)
-            .into(image)
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -126,13 +161,5 @@ class AuthUserFragment : Fragment(), OnEditorActionListener {
         authViewModel = null
         binding = null
         super.onDestroyView()
-    }
-
-    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-        if (actionId == EditorInfo.IME_ACTION_DONE || actionId == R.id.input_token) {
-            getNavigatorFragment()?.navigationAuthFragmentToRepositoriesListFragment()
-            return true
-        }
-        return false
     }
 }

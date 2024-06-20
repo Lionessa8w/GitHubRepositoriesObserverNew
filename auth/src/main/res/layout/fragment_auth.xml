@@ -9,43 +9,47 @@
     android:paddingRight="8dp"
     android:paddingLeft="8dp"
     android:paddingTop="8dp"
-    android:paddingEnd="8dp">
+    android:paddingEnd="8dp"
+    android:paddingRight="8dp">
 
 
     <ImageView
         android:id="@+id/logo_git"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="34dp"
-        android:paddingHorizontal="16dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars"
 
-        />
+        tools:src="@tools:sample/avatars"/>
 
     <EditText
         android:id="@+id/input_token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
+        android:backgroundTint="#03A9F4"
         android:hint="@string/personal_access_token"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="#616161"
+        android:textColorLink="#F44336"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo_git" />
+        app:layout_constraintTop_toBottomOf="@id/logo_git"/>
 
     <TextView
         android:id="@+id/text_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/input_token"
-        android:textColor="#FFFFFF"
+        android:textColor="#F44336"
         android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_token">
 
@@ -65,11 +69,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
+            android:layout_weight="2"
+            android:background="#4CAF50"
             android:gravity="center"
+            android:saveEnabled="false"
+            android:singleLine="false"
             android:text="@string/sing_in_button"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_weight="2"/>
+            android:textStyle="normal"/>
 
 
     </LinearLayout>

@@ -1,9 +1,9 @@
 ru.marina.githubrepositoriesobservernew.auth
 color black
 drawable gif_loading
-drawable github_bleu_png
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable logo_git
 id button_sing_in
 id container_loading
 id fragment_auth
@@ -17,3 +17,4 @@ string input_token
 string no_internet
 string personal_access_token
 string sing_in_button
+string unknown_error
