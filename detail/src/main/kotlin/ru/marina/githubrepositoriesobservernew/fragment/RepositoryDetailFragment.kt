@@ -21,8 +21,6 @@ import ru.marina.githubrepositoriesobservernew.state.RepositoryInfoViewModelStat
 import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModel
 import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModelFactoryProvider
 
-private const val ARG_NAME_KEY_ID = "ARG_NAME_KEY_ID"
-
 
 @AndroidEntryPoint
 class RepositoryDetailFragment @Inject constructor() : Fragment() {

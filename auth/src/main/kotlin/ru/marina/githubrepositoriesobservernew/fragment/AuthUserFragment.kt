@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -97,7 +96,7 @@ class AuthUserFragment : Fragment() {
             }
         })
         inputToken.setImeActionLabel("GO", EditorInfo.IME_ACTION_DONE)
-        inputToken.doOnTextChanged { text, start, count, after ->
+        inputToken.doOnTextChanged { _, _, _, _ ->
             authViewModel?.clearErrorState()
         }
     }

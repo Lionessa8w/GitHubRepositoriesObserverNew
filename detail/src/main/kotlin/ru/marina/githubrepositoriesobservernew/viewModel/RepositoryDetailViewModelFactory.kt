@@ -2,7 +2,6 @@ package ru.marina.githubrepositoriesobservernew.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import javax.inject.Inject
 import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
 import ru.marina.githubrepositoriesobservernew.detail.RepositoryDetailUseCase
 
