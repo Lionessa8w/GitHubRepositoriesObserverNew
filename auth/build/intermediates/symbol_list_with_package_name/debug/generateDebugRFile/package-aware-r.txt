@@ -8,6 +8,7 @@ drawable gif_loading
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable logo_git
+drawable rectangle_button
 id button_sing_in
 id container_loading
 id fragment_auth
