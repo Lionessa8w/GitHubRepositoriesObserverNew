@@ -1,6 +1,10 @@
 R_DEF: Internal format may change without notice
 local
 color black
+color blue
+color green
+color red
+color white
 drawable gif_loading
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -8,6 +12,7 @@ drawable logo_git
 id button_sing_in
 id container_loading
 id fragment_auth
+id hint
 id imageView_loading
 id input_token
 id linear_loading
@@ -19,3 +24,4 @@ string no_internet
 string personal_access_token
 string sing_in_button
 string unknown_error
+style ButtonStyleSingIn

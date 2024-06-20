@@ -3,7 +3,7 @@
     <string name="personal_access_token">Personal access token</string>
     <string name="sing_in_button">SING IN</string>
     <string name="no_internet">No network connection</string>
-    <string name="input_token">Еnter token</string>
+    <string name="input_token">Invalid token</string>
     <string name="unknown_error">Unknown error</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package ru.marina.githubrepositoriesobservernew.fragment
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -104,6 +105,7 @@ class AuthUserFragment : Fragment() {
     private fun observeViewModelState() {
         val binding= binding ?: return
         val errorText= binding.textError
+
         lifecycleScope.launch {
             authViewModel?.viewStateFlow?.collect { state ->
                 when (state) {
@@ -111,17 +113,20 @@ class AuthUserFragment : Fragment() {
                         showOrHideGifLoading(false)
                         errorText.isVisible=true
                         errorText.text = getString(R.string.input_token)
-
+                        setColorError(true)
                     }
 
                     AuthUserTokenViewModelState.Idle -> {
                         showOrHideGifLoading(false)
                         errorText.isVisible=false
+                        setColorError(false)
                     }
 
                     AuthUserTokenViewModelState.Loading -> {
                         showOrHideGifLoading(true)
                         errorText.isVisible=false
+                        setColorError(false)
+
 
                     }
 
@@ -129,21 +134,44 @@ class AuthUserFragment : Fragment() {
                         getNavigatorFragment()?.navigationAuthFragmentToRepositoriesListFragment()
                         errorText.isVisible=false
                         binding.buttonSingIn.isClickable = false
+                        setColorError(false)
+
                     }
 
                     is AuthUserTokenViewModelState.ErrorInternet -> {
                         showOrHideGifLoading(false)
                         errorText.isVisible=true
                         errorText.text = getString(R.string.no_internet)
+                        setColorError(true)
                     }
 
                     is AuthUserTokenViewModelState.Error -> {
                         showOrHideGifLoading(false)
                         errorText.isVisible=true
                         errorText.text = getString(R.string.unknown_error)
+                        setColorError(true)
                     }
                 }
             }
+        }
+    }
+
+    private fun setColorError(isShow: Boolean){
+        val binding= binding ?: return
+        val inputToken= binding.inputToken
+        val hint= binding.hint
+        if (isShow){
+            inputToken.background.mutate()
+                .setColorFilter(resources.getColor(R.color.red)
+                    , PorterDuff.Mode.SRC_ATOP)
+            hint.setTextColor(resources.getColor(R.color.red))
+        }
+        else{
+            inputToken.background.mutate()
+                .setColorFilter(resources.getColor(R.color.blue)
+                    , PorterDuff.Mode.SRC_ATOP)
+            hint.setTextColor(resources.getColor(R.color.blue))
+
         }
     }
 
