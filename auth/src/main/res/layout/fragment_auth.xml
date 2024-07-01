@@ -45,6 +45,7 @@
         android:layout_marginTop="15dp"
         android:backgroundTint="@color/blue"
         android:hint="@string/personal_access_token"
+        android:textColorHint="@color/dark_blue"
         android:inputType="text"
         android:paddingLeft="8dp"
         android:textColor="@color/white"

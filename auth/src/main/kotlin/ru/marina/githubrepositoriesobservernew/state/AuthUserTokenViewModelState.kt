@@ -10,6 +10,8 @@ sealed class AuthUserTokenViewModelState {
 
     data class ErrorInternet(val message: String) : AuthUserTokenViewModelState()
 
+    data object ErrorToken : AuthUserTokenViewModelState()
+
     data class Error(val message: String) : AuthUserTokenViewModelState()
 
     data object Success : AuthUserTokenViewModelState()

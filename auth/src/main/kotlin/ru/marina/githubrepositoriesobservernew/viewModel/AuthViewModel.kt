@@ -13,10 +13,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
+import ru.marina.githubrepositoriesobservernew.auth.AuthErrorCodeMapper
 import ru.marina.githubrepositoriesobservernew.auth.AuthLoginUseCase
 import ru.marina.githubrepositoriesobservernew.state.AuthUserTokenViewModelState
 
 const val TAG = "AuthViewModel"
+private const val ERROR_TOKEN = 401
 
 @HiltViewModel
 class AuthViewModel @Inject constructor() : ViewModel() {
@@ -47,10 +49,17 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
             } catch (e: UnknownHostException) {
                 _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorInternet(e.message.toString()))
-
             } catch (e: Throwable) {
                 Log.d("checkResult", "tryAuth: $e")
-                _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
+                val code = AuthErrorCodeMapper().getErrorCode(e)
+                if (code != null) {
+                    when (code) {
+                        ERROR_TOKEN -> _viewStateFlow.emit(AuthUserTokenViewModelState.ErrorToken)
+                        else -> _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
+                    }
+                } else {
+                    _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
+                }
             }
         }
     }

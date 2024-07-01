@@ -1,5 +1,6 @@
 int color black 0x0
 int color blue 0x0
+int color dark_blue 0x0
 int color green 0x0
 int color red 0x0
 int color white 0x0
@@ -18,6 +19,7 @@ int id linear_loading 0x0
 int id logo_git 0x0
 int id text_error 0x0
 int layout fragment_auth 0x0
+int string bad_credentials 0x0
 int string input_token 0x0
 int string no_internet 0x0
 int string personal_access_token 0x0

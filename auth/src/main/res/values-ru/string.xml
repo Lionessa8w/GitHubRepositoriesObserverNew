@@ -5,5 +5,5 @@
     <string name="no_internet">Нет подключения к сети</string>
     <string name="input_token">Введите токен</string>
     <string name="unknown_error">Неизвестная ошибка</string>
-
+    <string name="bad_credentials">Некорректный токен</string>
 </resources>

@@ -139,8 +139,8 @@ class RepositoryDetailAdapter(
     }
 
     fun dispose() {
-        scope.cancel()
         detailJob?.cancel()
         detailJob = null
+        scope.cancel()
     }
 }

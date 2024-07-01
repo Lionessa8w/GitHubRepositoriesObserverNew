@@ -142,6 +142,13 @@ class AuthUserFragment : Fragment() {
                         errorText.text = getString(R.string.unknown_error)
                         setColorError(true)
                     }
+
+                    AuthUserTokenViewModelState.ErrorToken -> {
+                        showOrHideGifLoading(false)
+                        errorText.isVisible = true
+                        errorText.text = getString(R.string.bad_credentials)
+                        setColorError(true)
+                    }
                 }
             }
         }

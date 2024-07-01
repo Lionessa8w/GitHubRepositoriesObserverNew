@@ -2,6 +2,7 @@ R_DEF: Internal format may change without notice
 local
 color black
 color blue
+color dark_blue
 color green
 color red
 color white
@@ -20,6 +21,7 @@ id linear_loading
 id logo_git
 id text_error
 layout fragment_auth
+string bad_credentials
 string input_token
 string no_internet
 string personal_access_token
