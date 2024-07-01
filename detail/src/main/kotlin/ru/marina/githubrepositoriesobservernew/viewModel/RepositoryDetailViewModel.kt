@@ -8,8 +8,10 @@ import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobservernew.KeyValueStorageApi
@@ -28,6 +30,9 @@ class RepositoryDetailViewModel(
     private val _viewStateFlow: MutableStateFlow<RepositoryInfoViewModelState> =
         MutableStateFlow(RepositoryInfoViewModelState.Loading)
     val viewStateFlow: StateFlow<RepositoryInfoViewModelState> = _viewStateFlow.asStateFlow()
+
+    private val _actionFlow = MutableSharedFlow<RepositoryDetailViewModelAction>()
+    val actionFlow = _actionFlow.asSharedFlow()
 
     fun updateRepositoryInfo() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
@@ -79,5 +84,17 @@ class RepositoryDetailViewModel(
             result += String(Base64.decode(line), StandardCharsets.UTF_8)
         }
         return result
+    }
+
+    fun clearTokenAndLogout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                databaseSaveToken.clear()
+                _actionFlow.emit(RepositoryDetailViewModelAction.LogOut())
+            } catch (e: Throwable) {
+                Log.e("checkResult", "logoutToken: $e")
+                return@launch
+            }
+        }
     }
 }

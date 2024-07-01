@@ -11,6 +11,7 @@ int drawable gif_loading 0x0
 int drawable git_logo 0x0
 int drawable link 0x0
 int drawable log_out_ 0x0
+int drawable rectangle_button 0x0
 int drawable scale 0x0
 int drawable star_yellow 0x0
 int drawable watchers 0x0
@@ -70,3 +71,4 @@ int string text_error 0x0
 int string toolbar_text 0x0
 int string watchers 0x0
 int string watchers_number 0x0
+int style ButtonError 0x0

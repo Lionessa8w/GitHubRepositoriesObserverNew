@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="license">Лицензия</string>
+    <string name="licensekey">Ключ лицензии</string>
+    <string name="stars_number">10</string>
+    <string name="star">зезд </string>
+    <string name="forks_number">10</string>
+    <string name="forks">вилок </string>
+    <string name="watchers_number">10</string>
+    <string name="watchers">просмотров</string>
+    <string name="description">описание...</string>
+    <string name="description_empty">пустое описание...</string>
+    <string name="toolbar_text">Репозитории</string>
+    <string name="sing_in_button">ВОЙТИ</string>
+    <string name="text_error">Ошибка</string>
+    <string name="button_error">Обновить страницу</string>
+    <string name="loading">загрузка...</string>
+</resources>

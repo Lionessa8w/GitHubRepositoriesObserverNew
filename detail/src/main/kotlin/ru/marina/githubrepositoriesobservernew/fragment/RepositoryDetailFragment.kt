@@ -16,9 +16,11 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import ru.marina.githubrepositoriesobservernew.detail.R
 import ru.marina.githubrepositoriesobservernew.detail.databinding.FragmentDetailInfoBinding
+import ru.marina.githubrepositoriesobservernew.getNavigatorFragment
 import ru.marina.githubrepositoriesobservernew.recycler.RepositoryDetailAdapter
 import ru.marina.githubrepositoriesobservernew.state.RepositoryInfoViewModelState
 import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModel
+import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModelAction
 import ru.marina.githubrepositoriesobservernew.viewModel.RepositoryDetailViewModelFactoryProvider
 
 
@@ -32,6 +34,7 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
 
     @Inject
     lateinit var repositoryDetailViewModelFactoryProvider: RepositoryDetailViewModelFactoryProvider
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,10 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = binding ?: return
 
+        binding.logOutButton.setOnClickListener {
+            viewModel?.clearTokenAndLogout()
+        }
+
         binding.nameRepository.text = args.name
         binding.recyclerViewInfo.layoutManager = LinearLayoutManager(context)
 
@@ -71,6 +78,19 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
         Glide.with(this)
             .load(R.drawable.gif_loading)
             .into(binding.imageViewLoading)
+
+        updateButtonError()
+
+        lifecycleScope.launch {
+            viewModel?.actionFlow?.collect {
+                when (it) {
+                    is RepositoryDetailViewModelAction.LogOut -> {
+                        getNavigatorFragment()
+                            ?.navigationRepositoriesListFragmentToAuthUserFragment()
+                    }
+                }
+            }
+        }
 
         lifecycleScope.launch {
             viewModel?.viewStateFlow?.collect { state ->
@@ -92,6 +112,14 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun updateButtonError(){
+        val binding = binding ?: return
+        val buttonError= binding.buttonError
+        buttonError.setOnClickListener {
+            viewModel?.updateRepositoryInfo()
         }
     }
 

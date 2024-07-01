@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="toolbar_text">Repositories</string>
+    <string name="text_error">Ошибка</string>
+    <string name="button_error">Обновить страницу</string>
+    <string name="loading">загрузка...</string>
+</resources>

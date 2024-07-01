@@ -57,6 +57,8 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
             .load(R.drawable.gif_louding)
             .into(binding.imageViewLoading)
 
+        updateButtonError()
+
         lifecycleScope.launch {
             viewModel?.actionFlow?.collect {
                 when (it) {
@@ -97,6 +99,14 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun updateButtonError(){
+        val binding = binding ?: return
+        val buttonError= binding.buttonError
+        buttonError.setOnClickListener {
+            viewModel?.updateRepositoriesList()
         }
     }
 

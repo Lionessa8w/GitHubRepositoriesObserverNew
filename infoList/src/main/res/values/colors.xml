@@ -4,5 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#298EDD</color>
     <color name="lilac">#8A66CC</color>
+    <color name="green">#4CAF50</color>
+    <color name="dark_grey">#1B1C22</color>
 
 </resources>

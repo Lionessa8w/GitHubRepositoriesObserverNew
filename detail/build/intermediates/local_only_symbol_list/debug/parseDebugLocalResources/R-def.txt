@@ -13,6 +13,7 @@ drawable gif_loading
 drawable git_logo
 drawable link
 drawable log_out_
+drawable rectangle_button
 drawable scale
 drawable star_yellow
 drawable watchers
@@ -72,3 +73,4 @@ string text_error
 string toolbar_text
 string watchers
 string watchers_number
+style ButtonError
