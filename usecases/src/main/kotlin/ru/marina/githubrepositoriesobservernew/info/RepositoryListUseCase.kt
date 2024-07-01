@@ -9,12 +9,6 @@ class RepositoryListUseCase @Inject constructor(
 ) {
 
     suspend fun getRepositoriesList(token: String): List<RepositoriesModel> {
-        val listModel = repository.getRepositoriesList(token)
-        val listMapper = mutableListOf<RepositoriesModel>()
-        for (element in listModel) {
-            listMapper.add(mapper.invoke(element))
-        }
-
-        return listMapper
+        return repository.getRepositoriesList(token).map { mapper(it) }
     }
 }

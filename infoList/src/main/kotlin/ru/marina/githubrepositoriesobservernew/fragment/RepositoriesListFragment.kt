@@ -31,7 +31,7 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[RepositoriesListViewModel::class.java]
         if (savedInstanceState == null) {
-            viewModel!!.updateRepositoriesList()
+            viewModel?.updateRepositoriesList()
         }
     }
 
@@ -53,11 +53,17 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
             viewModel?.clearTokenAndLogout()
         }
 
+        Glide.with(this)
+            .load(R.drawable.gif_louding)
+            .into(binding.imageViewLoading)
+
         lifecycleScope.launch {
             viewModel?.actionFlow?.collect {
                 when (it) {
-                    is RepositoriesListViewModelAction.LogOut ->
-                        getNavigatorFragment()?.navigationRepositoriesListFragmentToAuthUserFragment()
+                    is RepositoriesListViewModelAction.LogOut -> {
+                        getNavigatorFragment()
+                            ?.navigationRepositoriesListFragmentToAuthUserFragment()
+                    }
                 }
             }
         }
@@ -82,10 +88,11 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
                             RepositoriesListAdapter(
                                 state.repositoriesModelList,
                                 onCardClicked = { name, owner ->
-                                    getNavigatorFragment()?.navigationRepositoriesListFragmentToRepositoryInfoFragment(
-                                        name,
-                                        owner
-                                    )
+                                    getNavigatorFragment()
+                                        ?.navigationRepositoriesListFragmentToRepositoryInfoFragment(
+                                            name,
+                                            owner
+                                        )
                                 })
                     }
                 }
@@ -99,12 +106,8 @@ class RepositoriesListFragment @Inject constructor() : Fragment() {
     }
 
     private fun showOrHideGifLoading(isShow: Boolean) {
-        val binding= binding ?: return
-        val image = binding.imageViewLoading
+        val binding = binding ?: return
         binding.containerLoading.isVisible = isShow
-        Glide.with(this)
-            .load(R.drawable.gif_louding)
-            .into(image)
     }
 
 

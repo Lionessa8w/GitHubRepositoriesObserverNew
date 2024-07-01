@@ -12,6 +12,5 @@ sealed class AuthUserTokenViewModelState {
 
     data class Error(val message: String) : AuthUserTokenViewModelState()
 
-
     data object Success : AuthUserTokenViewModelState()
 }

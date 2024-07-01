@@ -69,18 +69,16 @@ class AuthUserFragment : Fragment() {
         }
 
         observeViewModelState()
-
     }
 
     private fun logIn() {
         val binding = binding ?: return
         val authViewModel = this.authViewModel ?: return
         val inputToken = binding.inputToken.text.toString()
-        if (authViewModel.validate(inputToken).not()){
+        if (authViewModel.validate(inputToken).not()) {
             return
         }
         authViewModel.tryAuth(inputToken)
-
     }
 
     private fun setupInputTokenEditText() {
@@ -95,58 +93,52 @@ class AuthUserFragment : Fragment() {
                 return false
             }
         })
-        inputToken.setImeActionLabel("GO", EditorInfo.IME_ACTION_DONE)
+
         inputToken.doOnTextChanged { _, _, _, _ ->
             authViewModel?.clearErrorState()
         }
     }
 
     private fun observeViewModelState() {
-        val binding= binding ?: return
-        val errorText= binding.textError
+        val binding = binding ?: return
+        val errorText = binding.textError
 
         lifecycleScope.launch {
             authViewModel?.viewStateFlow?.collect { state ->
                 when (state) {
                     is AuthUserTokenViewModelState.ErrorEmptyToken -> {
                         showOrHideGifLoading(false)
-                        errorText.isVisible=true
+                        errorText.isVisible = true
                         errorText.text = getString(R.string.input_token)
                         setColorError(true)
                     }
 
                     AuthUserTokenViewModelState.Idle -> {
                         showOrHideGifLoading(false)
-                        errorText.isVisible=false
+                        errorText.isVisible = false
                         setColorError(false)
                     }
 
                     AuthUserTokenViewModelState.Loading -> {
                         showOrHideGifLoading(true)
-                        errorText.isVisible=false
+                        errorText.isVisible = false
                         setColorError(false)
-
-
                     }
 
                     is AuthUserTokenViewModelState.Success -> {
                         getNavigatorFragment()?.navigationAuthFragmentToRepositoriesListFragment()
-                        errorText.isVisible=false
-                        binding.buttonSingIn.isClickable = false
-                        setColorError(false)
-
                     }
 
                     is AuthUserTokenViewModelState.ErrorInternet -> {
                         showOrHideGifLoading(false)
-                        errorText.isVisible=true
+                        errorText.isVisible = true
                         errorText.text = getString(R.string.no_internet)
                         setColorError(true)
                     }
 
                     is AuthUserTokenViewModelState.Error -> {
                         showOrHideGifLoading(false)
-                        errorText.isVisible=true
+                        errorText.isVisible = true
                         errorText.text = getString(R.string.unknown_error)
                         setColorError(true)
                     }
@@ -155,23 +147,16 @@ class AuthUserFragment : Fragment() {
         }
     }
 
-    private fun setColorError(isShow: Boolean){
-        val binding= binding ?: return
-        val inputToken= binding.inputToken
-        val hint= binding.hint
-        if (isShow){
-            inputToken.background.mutate()
-                .setColorFilter(resources.getColor(R.color.red)
-                    , PorterDuff.Mode.SRC_ATOP)
-            hint.setTextColor(resources.getColor(R.color.red))
-        }
-        else{
-            inputToken.background.mutate()
-                .setColorFilter(resources.getColor(R.color.blue)
-                    , PorterDuff.Mode.SRC_ATOP)
-            hint.setTextColor(resources.getColor(R.color.blue))
-
-        }
+    private fun setColorError(isShow: Boolean) {
+        val binding = binding ?: return
+        val inputToken = binding.inputToken
+        val hint = binding.hint
+        val textColor = if (isShow) R.color.red else R.color.blue
+        inputToken.background.mutate().setColorFilter(
+            resources.getColor(textColor),
+            PorterDuff.Mode.SRC_ATOP
+        )
+        hint.setTextColor(resources.getColor(textColor))
     }
 
     private fun showOrHideGifLoading(isShow: Boolean) {
@@ -180,7 +165,8 @@ class AuthUserFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(LAST_TOKEN_INPUT, binding?.inputToken?.text.toString())
+        val binding = binding ?: return
+        outState.putString(LAST_TOKEN_INPUT, binding.inputToken.text.toString())
         super.onSaveInstanceState(outState)
     }
 

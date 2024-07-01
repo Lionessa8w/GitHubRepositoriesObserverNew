@@ -28,7 +28,6 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
     private var binding: FragmentDetailInfoBinding? = null
     private var viewModel: RepositoryDetailViewModel? = null
 
-
     private val args: RepositoryDetailFragmentArgs by navArgs()
 
     @Inject
@@ -69,6 +68,10 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
             activity?.onBackPressed()
         }
 
+        Glide.with(this)
+            .load(R.drawable.gif_loading)
+            .into(binding.imageViewLoading)
+
         lifecycleScope.launch {
             viewModel?.viewStateFlow?.collect { state ->
                 when (state) {
@@ -98,11 +101,7 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
 
     private fun showOrHideGifLoading(isShow: Boolean) {
         val binding = binding ?: return
-        val image = binding.imageViewLoading
         binding.containerLoading.isVisible = isShow
-        Glide.with(this)
-            .load(R.drawable.gif_loading)
-            .into(image)
     }
 
     override fun onDestroy() {

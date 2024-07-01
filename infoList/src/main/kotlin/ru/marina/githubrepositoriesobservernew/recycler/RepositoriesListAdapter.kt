@@ -40,7 +40,6 @@ class RepositoriesListAdapter(
         val repositoryDescription: TextView = binding.descriptionRepository
         val languageCode: TextView = binding.kotlinOrJava
         val repositoryListRoot: CardView = binding.repoListRoot
-
     }
 
 }

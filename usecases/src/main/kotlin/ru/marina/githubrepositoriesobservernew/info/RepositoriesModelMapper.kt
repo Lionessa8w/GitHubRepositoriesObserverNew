@@ -8,7 +8,7 @@ class RepositoriesModelMapper @Inject constructor() {
     operator fun invoke(model: SingInResponseRepositoryInfoEntity): RepositoriesModel {
         return RepositoriesModel(
             name = model.name ?: "",
-            owner = model.owner?.login ?: "", // TODO:
+            owner = model.owner?.login ?: "",
             description = model.description ?: "",
             login = model.language ?: "",
         )

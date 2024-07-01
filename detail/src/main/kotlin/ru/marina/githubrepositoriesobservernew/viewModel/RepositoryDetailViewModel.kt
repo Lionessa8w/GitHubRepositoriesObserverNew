@@ -32,7 +32,9 @@ class RepositoryDetailViewModel(
     fun updateRepositoryInfo() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
             viewModelScope.launch {
-                _viewStateFlow.emit(RepositoryInfoViewModelState.Error(throwable.localizedMessage!!))
+                _viewStateFlow.emit(RepositoryInfoViewModelState.Error(
+                    throwable.localizedMessage ?: throwable.message ?: ""
+                ))
             }
         }) {
             val itemList: MutableList<RepositoryInfoItem> = mutableListOf()

@@ -29,7 +29,6 @@ class AuthViewModel @Inject constructor() : ViewModel() {
 
     private var authJob: Job? = null
 
-
     private val _viewStateFlow: MutableStateFlow<AuthUserTokenViewModelState> =
         MutableStateFlow(AuthUserTokenViewModelState.Idle)
     val viewStateFlow: StateFlow<AuthUserTokenViewModelState> = _viewStateFlow.asStateFlow()
@@ -53,7 +52,6 @@ class AuthViewModel @Inject constructor() : ViewModel() {
                 Log.d("checkResult", "tryAuth: $e")
                 _viewStateFlow.emit(AuthUserTokenViewModelState.Error(e.message.toString()))
             }
-
         }
     }
 
@@ -61,7 +59,8 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         authJob?.cancel()
         super.onCleared()
     }
-    fun clearErrorState(){
+
+    fun clearErrorState() {
         viewModelScope.launch {
             _viewStateFlow.emit(AuthUserTokenViewModelState.Idle)
         }

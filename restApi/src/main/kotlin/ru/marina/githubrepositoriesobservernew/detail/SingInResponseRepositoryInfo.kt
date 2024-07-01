@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class SingInResponseRepositoryInfo  (
+class SingInResponseRepositoryInfo(
     val name: String?,
     val description: String?,
     @SerialName("html_url")

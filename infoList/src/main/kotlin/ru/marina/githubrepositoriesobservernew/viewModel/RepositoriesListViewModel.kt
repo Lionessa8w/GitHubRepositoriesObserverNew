@@ -19,6 +19,7 @@ import ru.marina.githubrepositoriesobservernew.state.RepositoriesListViewModelSt
 
 @HiltViewModel
 class RepositoriesListViewModel @Inject constructor() : ViewModel() {
+
     @Inject
     lateinit var repositoryListUseCase: RepositoryListUseCase
 
@@ -36,16 +37,18 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
             viewModelScope.launch {
                 _viewStateFlow.emit(
-                    RepositoriesListViewModelState.Error(
-                        throwable.localizedMessage ?: ""
-                    )
+                    RepositoriesListViewModelState.Error(throwable.localizedMessage ?: "")
                 )
             }
         }) {
             _viewStateFlow.emit(RepositoriesListViewModelState.Loading)
             _viewStateFlow.emit(
                 RepositoriesListViewModelState
-                    .Success(repositoryListUseCase.getRepositoriesList(databaseSaveToken.getToken()))
+                    .Success(
+                        repositoriesModelList = repositoryListUseCase.getRepositoriesList(
+                            databaseSaveToken.getToken()
+                        )
+                    )
             )
         }
     }
@@ -59,8 +62,6 @@ class RepositoriesListViewModel @Inject constructor() : ViewModel() {
                 Log.e("checkResult", "logoutToken: $e")
                 return@launch
             }
-
-
         }
     }
 

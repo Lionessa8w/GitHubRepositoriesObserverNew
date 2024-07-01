@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class SingInResponseRepositoryContent (
+class SingInResponseRepositoryContent(
     @SerialName("content")
     val content: String?
 )
