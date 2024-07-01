@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#298EDD</color>
+    <color name="lilac">#8A66CC</color>
+
 </resources>

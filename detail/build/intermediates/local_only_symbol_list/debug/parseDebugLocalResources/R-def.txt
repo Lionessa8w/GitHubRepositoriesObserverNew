@@ -1,7 +1,12 @@
 R_DEF: Internal format may change without notice
 local
 color black
+color blue
+color dark_grey
+color green
+color watchers_color
 color white
+color yellow
 drawable arrow_back
 drawable fork
 drawable gif_loading
@@ -31,6 +36,7 @@ id linearLayout_link
 id linearLayout_star_fork_watcher
 id link_active
 id link_image
+id log_out_button
 id name_repository
 id nav_graph_repo_info
 id recyclerView_info

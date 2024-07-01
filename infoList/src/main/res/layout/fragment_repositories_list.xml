@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0E101B"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,7 +32,7 @@
                 android:freezesText="false"
                 android:paddingLeft="15sp"
                 android:text="@string/toolbar_text"
-                android:textColor="#DAD6D6"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="normal"
                 android:paddingTop="22dp"
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#0E101B"
+                android:background="@color/black"
                 android:src="@drawable/log_out_"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
         android:id="@+id/repositories_list_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#000000"
+        android:background="@color/black"
         android:paddingTop="10dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -129,8 +129,7 @@
             android:id="@+id/imageView_loading"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:contentDescription="@string/loading"
-            android:src="@drawable/git_logo"/>
+            android:contentDescription="@string/loading"/>
     </LinearLayout>
 
 

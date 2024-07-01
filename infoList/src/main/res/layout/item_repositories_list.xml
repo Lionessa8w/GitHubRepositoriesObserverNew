@@ -12,14 +12,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF000000">
+        android:background="@color/black">
 
 
         <LinearLayout
             android:id="@+id/layout_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FF000000"
+            android:background="@color/black"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
                 android:id="@+id/linear_layout_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FF000000"
+                android:background="@color/black"
                 android:orientation="horizontal">
 
                 <TextView
@@ -41,7 +41,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="Имя проблемы"
-                    android:textColor="#298EDD"
+                    android:textColor="@color/blue"
                     android:textSize="20dp"/>
 
                 <TextView
@@ -52,7 +52,7 @@
                     android:layout_weight="3"
                     android:gravity="right"
                     android:text="ЯП"
-                    android:textColor="#8A66CC"/>
+                    android:textColor="@color/lilac"/>
             </LinearLayout>
 
             <TextView
@@ -63,7 +63,7 @@
                 android:ellipsize="end"
                 android:lines="2"
                 android:text="описание"
-                android:textColor="#F6F6F6"
+                android:textColor="@color/white"
                 android:textSize="18dp"/>
 
 

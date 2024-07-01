@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#000000">
+    android:background="@color/black">
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -18,7 +18,7 @@
             android:id="@+id/linearLayout_star_fork_watcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000000"
+            android:background="@color/black"
             android:foregroundGravity="center_vertical"
             android:gravity="center"
             android:orientation="horizontal"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="4dp"
                 android:text="@string/stars_number"
-                android:textColor="#FFCC00"
+                android:textColor="@color/yellow"
                 android:textSize="20sp"
                 android:textStyle="bold">
 
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="12dp"
                 android:text="@string/star"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="20sp">
 
             </TextView>
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="4dp"
                 android:text="@string/forks_number"
-                android:textColor="#4CAF50"
+                android:textColor="@color/green"
                 android:textSize="20sp"
                 android:textStyle="bold">
 
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="12dp"
                 android:text="@string/forks"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="20sp">
 
             </TextView>
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="4dp"
                 android:text="@string/watchers"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 >
 
