@@ -115,9 +115,9 @@ class RepositoryDetailFragment @Inject constructor() : Fragment() {
         }
     }
 
-    private fun updateButtonError(){
+    private fun updateButtonError() {
         val binding = binding ?: return
-        val buttonError= binding.buttonError
+        val buttonError = binding.buttonError
         buttonError.setOnClickListener {
             viewModel?.updateRepositoryInfo()
         }

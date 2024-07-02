@@ -37,9 +37,11 @@ class RepositoryDetailViewModel(
     fun updateRepositoryInfo() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
             viewModelScope.launch {
-                _viewStateFlow.emit(RepositoryInfoViewModelState.Error(
-                    throwable.localizedMessage ?: throwable.message ?: ""
-                ))
+                _viewStateFlow.emit(
+                    RepositoryInfoViewModelState.Error(
+                        throwable.localizedMessage ?: throwable.message ?: ""
+                    )
+                )
             }
         }) {
             val itemList: MutableList<RepositoryInfoItem> = mutableListOf()
@@ -48,7 +50,11 @@ class RepositoryDetailViewModel(
             val model = useCase.getInfoRepository(databaseSaveToken.getToken(), name, owner)
 
             val content: String? = try {
-                useCase.getRepositoryContext(databaseSaveToken.getToken(), name, owner).content?.toMarkdown()
+                useCase.getRepositoryContext(
+                    databaseSaveToken.getToken(),
+                    name,
+                    owner
+                ).content?.toMarkdown()
             } catch (e: Throwable) {
                 Log.d("checkResult", "$e")
                 null
